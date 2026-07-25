@@ -31,24 +31,33 @@ check("id 중복 없음", new Set(OUTPUT_TYPES.map((t) => t.id)).size === 9);
 check("모든 유형에 한/영 이름", OUTPUT_TYPES.every((t) => t.name.ko && t.name.en));
 check("모든 유형에 SVG 아이콘", OUTPUT_TYPES.every((t) => t.icon && t.icon.startsWith("<svg")));
 
-check("모든 유형에 일본어 이름", OUTPUT_TYPES.every((t) => t.name.ja));
+// UI 노출 문자열은 7개 언어 모두 필수
+const UI_STR_LANGS = ["ko", "en", "ja", "es", "zh", "fr", "de"];
+const hasAll = (b) => !!b && UI_STR_LANGS.every((l) => b[l]);
+
+check("모든 유형 이름 7개 언어", OUTPUT_TYPES.every((t) => hasAll(t.name)));
 
 for (const type of OUTPUT_TYPES) {
   for (const f of type.fields) {
-    check(`${type.id}.${f.key} 라벨 한/영/일`, !!(f.label.ko && f.label.en && f.label.ja));
+    check(`${type.id}.${f.key} 라벨 7개 언어`, hasAll(f.label));
     if (f.type === "select") {
-      check(`${type.id}.${f.key} 옵션 한/영/일`, f.options.every((o) => o.ko && o.en && o.ja));
+      check(`${type.id}.${f.key} 옵션 7개 언어`, f.options.every(hasAll));
     }
     if (f.placeholder) {
-      check(`${type.id}.${f.key} 플레이스홀더 한/영/일`, !!(f.placeholder.ko && f.placeholder.en && f.placeholder.ja));
+      check(`${type.id}.${f.key} 플레이스홀더 7개 언어`, hasAll(f.placeholder));
     }
   }
   if (type.note) {
-    check(`${type.id} 안내문 한/영/일`, !!(type.note.ko && type.note.en && type.note.ja));
+    check(`${type.id} 안내문 7개 언어`, hasAll(type.note));
   }
 }
 
-check("디자인 스타일 일본어명 모두 존재", Object.values(DESIGN_STYLES).every((s) => typeof s.ja === "string" && s.ja.length > 0));
+check(
+  "디자인 스타일명 7개 언어",
+  Object.values(DESIGN_STYLES).every((s) =>
+    ["en", "ja", "es", "zh", "fr", "de"].every((l) => typeof s[l] === "string" && s[l].length > 0)
+  )
+);
 
 // --- 빌드: 한국어 ---
 for (const type of OUTPUT_TYPES) {

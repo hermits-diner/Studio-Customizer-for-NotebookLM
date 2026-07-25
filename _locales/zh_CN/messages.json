@@ -1,0 +1,8 @@
+{
+  "extDesc": {
+    "message": "输入目的、受众和背景,为 NotebookLM Studio 各类输出生成定制化提示词,并一键插入。"
+  },
+  "actionTitle": {
+    "message": "打开 Studio Customizer for NotebookLM"
+  }
+}

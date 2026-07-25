@@ -1,0 +1,8 @@
+{
+  "extDesc": {
+    "message": "Introduce propósito, audiencia y contexto para generar prompts de personalización para cada salida de NotebookLM Studio, e insértalos con un clic."
+  },
+  "actionTitle": {
+    "message": "Abrir Studio Customizer for NotebookLM"
+  }
+}

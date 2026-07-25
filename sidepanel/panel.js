@@ -201,11 +201,301 @@ const I18N = {
     obStep3: "NotebookLMでカスタマイズ欄を開き[挿入]を押す(またはコピーして貼り付け)",
     obDone: "はじめる",
   },
+  es: {
+    subtitle: "Elige un tipo de contenido, añade tu contexto y obtén un prompt de personalización a medida.",
+    step1: "Elige el contenido",
+    step2: "Añade contexto",
+    step3: "Prompt generado",
+    presets: "Preajustes",
+    audience: "Audiencia",
+    audiencePh: "p. ej. principiantes, compañeros de marketing",
+    purpose: "Propósito",
+    purposePh: "p. ej. presentación semanal, repaso para examen",
+    context: "Contexto adicional (texto libre)",
+    contextPh: "p. ej. El público no tiene conocimientos previos; se necesitan ejemplos sencillos.",
+    outputLang: "Idioma del resultado",
+    copy: "Copiar",
+    copied: "Copiado ✓",
+    save: "Guardar",
+    del: "Eliminar",
+    ok: "OK",
+    cancel: "Cancelar",
+    presetNamePh: "Nombre del preajuste (p. ej. quiz semanal)",
+    presetPlaceholder: "Selecciona un preajuste guardado…",
+    charWarn: "Algunos cuadros de personalización tienen un límite de ~500 caracteres. Considera acortar.",
+    charSuffix: " caracteres",
+    selectOption: "(elegir)",
+    audienceOptions: [
+      "Principiantes en el tema",
+      "Estudiantes de secundaria",
+      "Universitarios / adultos",
+      "Compañeros de trabajo / mi equipo",
+      "Clientes / público general",
+      "Expertos / profesionales",
+    ],
+    purposeOptions: [
+      "Presentar un concepto nuevo",
+      "Repasar lo esencial",
+      "Preparar un examen",
+      "Informe de trabajo / briefing",
+      "Clase / presentación",
+      "Material de grupo de estudio",
+    ],
+    settings: "Ajustes",
+    apiKey: "Clave API de Gemini",
+    apiKeyPh: "Pega tu clave de Google AI Studio",
+    model: "Modelo",
+    refine: "Pulir con IA",
+    refining: "Puliendo…",
+    refineNoKey: "Primero guarda tu clave API de Gemini en Ajustes (icono de engranaje).",
+    refineFail: "Error de solicitud: ",
+    apiPrivacy: "Pulir con IA envía el prompt actual a la API de Google Gemini. Evita datos personales sensibles. Tu clave se guarda solo en este dispositivo.",
+    saved: "Guardado ✓",
+    insert: "Insertar",
+    inserted: "Insertado ✓",
+    insertNoTab: "No se encontró una pestaña de NotebookLM. Abre notebooklm.google.com primero.",
+    insertNoBox: "Abre primero el cuadro de personalización del contenido en NotebookLM.",
+    history: "Historial",
+    historyEmpty: "Los prompts que copies o insertes aparecerán aquí.",
+    clear: "Vaciar",
+    exportBtn: "Exportar",
+    importBtn: "Importar",
+    importErr: "Error al importar: no es un archivo JSON de preajustes válido.",
+    obTitle: "Empieza en 3 pasos",
+    obStep1: "Elige el tipo de contenido (quiz, diapositivas…)",
+    obStep2: "Añade audiencia, propósito y contexto: el prompt se crea en vivo",
+    obStep3: "Abre el cuadro de personalización en NotebookLM y pulsa Insertar (o copia y pega)",
+    obDone: "Entendido",
+  },
+  zh: {
+    subtitle: "选择输出类型,输入你的背景信息,即可生成定制化提示词。",
+    step1: "选择输出类型",
+    step2: "输入背景信息",
+    step3: "生成的提示词",
+    presets: "预设",
+    audience: "受众",
+    audiencePh: "例:入门者、市场团队同事",
+    purpose: "目的",
+    purposePh: "例:周会汇报、备考复习",
+    context: "补充背景(自由填写)",
+    contextPh: "例:听众没有背景知识,需要通俗易懂的例子。",
+    outputLang: "输出语言",
+    copy: "复制",
+    copied: "已复制 ✓",
+    save: "保存",
+    del: "删除",
+    ok: "确定",
+    cancel: "取消",
+    presetNamePh: "预设名称(例:每周简报测验)",
+    presetPlaceholder: "选择已保存的预设…",
+    charWarn: "部分定制输入框约有500字符上限,建议适当精简。",
+    charSuffix: " 字符",
+    selectOption: "(选择)",
+    audienceOptions: [
+      "零基础入门者",
+      "高中生",
+      "大学生·成人学习者",
+      "同事·团队",
+      "客户·大众",
+      "专家·从业者",
+    ],
+    purposeOptions: [
+      "介绍新概念",
+      "要点复习",
+      "备考·测评",
+      "工作汇报·简报",
+      "讲课·演示材料",
+      "学习小组资料",
+    ],
+    settings: "设置",
+    apiKey: "Gemini API 密钥",
+    apiKeyPh: "粘贴在 Google AI Studio 生成的密钥",
+    model: "模型",
+    refine: "AI 润色",
+    refining: "润色中…",
+    refineNoKey: "请先在设置(右上角齿轮)中保存 Gemini API 密钥。",
+    refineFail: "请求失败:",
+    apiPrivacy: "点击 AI 润色会将当前提示词发送到 Google Gemini API。请勿输入敏感个人信息。密钥仅保存在本设备。",
+    saved: "已保存 ✓",
+    insert: "插入",
+    inserted: "已插入 ✓",
+    insertNoTab: "未找到 NotebookLM 标签页。请先打开 notebooklm.google.com。",
+    insertNoBox: "请先在 NotebookLM 中打开输出内容的定制输入框。",
+    history: "历史记录",
+    historyEmpty: "复制或插入过的提示词会显示在这里。",
+    clear: "清空",
+    exportBtn: "导出",
+    importBtn: "导入",
+    importErr: "导入失败:不是有效的预设 JSON 文件。",
+    obTitle: "三步开始",
+    obStep1: "选择输出类型(测验、幻灯片…)",
+    obStep2: "输入受众、目的和背景,提示词实时生成",
+    obStep3: "在 NotebookLM 打开定制输入框,点击[插入](或复制粘贴)",
+    obDone: "知道了",
+  },
+  fr: {
+    subtitle: "Choisissez un contenu, ajoutez votre contexte et obtenez un prompt de personnalisation sur mesure.",
+    step1: "Choisir le contenu",
+    step2: "Ajouter le contexte",
+    step3: "Prompt généré",
+    presets: "Préréglages",
+    audience: "Public",
+    audiencePh: "ex. débutants, collègues du marketing",
+    purpose: "Objectif",
+    purposePh: "ex. présentation hebdomadaire, révision d'examen",
+    context: "Contexte supplémentaire (texte libre)",
+    contextPh: "ex. Public sans connaissances préalables ; il faut des exemples simples.",
+    outputLang: "Langue du résultat",
+    copy: "Copier",
+    copied: "Copié ✓",
+    save: "Enregistrer",
+    del: "Supprimer",
+    ok: "OK",
+    cancel: "Annuler",
+    presetNamePh: "Nom du préréglage (ex. quiz hebdo)",
+    presetPlaceholder: "Choisir un préréglage enregistré…",
+    charWarn: "Certains champs de personnalisation sont limités à ~500 caractères. Pensez à raccourcir.",
+    charSuffix: " caractères",
+    selectOption: "(choisir)",
+    audienceOptions: [
+      "Débutants sur le sujet",
+      "Lycéens",
+      "Étudiants / adultes",
+      "Collègues / mon équipe",
+      "Clients / grand public",
+      "Experts / praticiens",
+    ],
+    purposeOptions: [
+      "Présenter un nouveau concept",
+      "Réviser l'essentiel",
+      "Préparer un examen",
+      "Rapport / briefing de travail",
+      "Cours / présentation",
+      "Support de groupe d'étude",
+    ],
+    settings: "Réglages",
+    apiKey: "Clé API Gemini",
+    apiKeyPh: "Collez votre clé Google AI Studio",
+    model: "Modèle",
+    refine: "Affiner par IA",
+    refining: "Affinage…",
+    refineNoKey: "Enregistrez d'abord votre clé API Gemini dans les réglages (icône engrenage).",
+    refineFail: "Échec de la requête : ",
+    apiPrivacy: "Affiner par IA envoie le prompt actuel à l'API Google Gemini. Évitez les données personnelles sensibles. Votre clé reste sur cet appareil.",
+    saved: "Enregistré ✓",
+    insert: "Insérer",
+    inserted: "Inséré ✓",
+    insertNoTab: "Aucun onglet NotebookLM trouvé. Ouvrez d'abord notebooklm.google.com.",
+    insertNoBox: "Ouvrez d'abord le champ de personnalisation du contenu dans NotebookLM.",
+    history: "Historique",
+    historyEmpty: "Les prompts copiés ou insérés apparaîtront ici.",
+    clear: "Vider",
+    exportBtn: "Exporter",
+    importBtn: "Importer",
+    importErr: "Échec de l'import : fichier JSON de préréglages invalide.",
+    obTitle: "Démarrer en 3 étapes",
+    obStep1: "Choisissez le type de contenu (quiz, diapositives…)",
+    obStep2: "Ajoutez public, objectif et contexte — le prompt se construit en direct",
+    obStep3: "Ouvrez le champ de personnalisation dans NotebookLM et cliquez sur Insérer (ou copiez-collez)",
+    obDone: "Compris",
+  },
+  de: {
+    subtitle: "Ausgabetyp wählen, Kontext eingeben — fertig ist der maßgeschneiderte Anpassungs-Prompt.",
+    step1: "Ausgabe wählen",
+    step2: "Kontext eingeben",
+    step3: "Generierter Prompt",
+    presets: "Voreinstellungen",
+    audience: "Zielgruppe",
+    audiencePh: "z. B. Einsteiger, Marketing-Kollegen",
+    purpose: "Zweck",
+    purposePh: "z. B. Wochenmeeting, Prüfungsvorbereitung",
+    context: "Zusätzlicher Kontext (Freitext)",
+    contextPh: "z. B. Publikum ohne Vorwissen; einfache Beispiele nötig.",
+    outputLang: "Ausgabesprache",
+    copy: "Kopieren",
+    copied: "Kopiert ✓",
+    save: "Speichern",
+    del: "Löschen",
+    ok: "OK",
+    cancel: "Abbrechen",
+    presetNamePh: "Name der Voreinstellung (z. B. Wochenbriefing-Quiz)",
+    presetPlaceholder: "Gespeicherte Voreinstellung wählen…",
+    charWarn: "Manche Anpassungsfelder haben ein Limit von ca. 500 Zeichen. Ggf. kürzen.",
+    charSuffix: " Zeichen",
+    selectOption: "(wählen)",
+    audienceOptions: [
+      "Einsteiger ohne Vorwissen",
+      "Schüler (Oberstufe)",
+      "Studierende / Erwachsene",
+      "Kollegen / mein Team",
+      "Kunden / breites Publikum",
+      "Experten / Praktiker",
+    ],
+    purposeOptions: [
+      "Neues Konzept vorstellen",
+      "Kernpunkte wiederholen",
+      "Prüfungsvorbereitung",
+      "Arbeitsbericht / Briefing",
+      "Vorlesung / Präsentation",
+      "Lerngruppen-Material",
+    ],
+    settings: "Einstellungen",
+    apiKey: "Gemini-API-Schlüssel",
+    apiKeyPh: "Schlüssel aus Google AI Studio einfügen",
+    model: "Modell",
+    refine: "Mit KI verfeinern",
+    refining: "Wird verfeinert…",
+    refineNoKey: "Speichere zuerst deinen Gemini-API-Schlüssel in den Einstellungen (Zahnrad).",
+    refineFail: "Anfrage fehlgeschlagen: ",
+    apiPrivacy: "Mit KI verfeinern sendet den aktuellen Prompt an die Google-Gemini-API. Keine sensiblen persönlichen Daten eingeben. Der Schlüssel bleibt auf diesem Gerät.",
+    saved: "Gespeichert ✓",
+    insert: "Einfügen",
+    inserted: "Eingefügt ✓",
+    insertNoTab: "Kein NotebookLM-Tab gefunden. Öffne zuerst notebooklm.google.com.",
+    insertNoBox: "Öffne zuerst das Anpassungsfeld der Ausgabe in NotebookLM.",
+    history: "Verlauf",
+    historyEmpty: "Kopierte oder eingefügte Prompts erscheinen hier.",
+    clear: "Leeren",
+    exportBtn: "Exportieren",
+    importBtn: "Importieren",
+    importErr: "Import fehlgeschlagen: keine gültige Voreinstellungs-JSON-Datei.",
+    obTitle: "In 3 Schritten starten",
+    obStep1: "Ausgabetyp wählen (Quiz, Folien…)",
+    obStep2: "Zielgruppe, Zweck und Kontext eingeben — der Prompt entsteht live",
+    obStep3: "In NotebookLM das Anpassungsfeld öffnen und auf Einfügen klicken (oder kopieren & einfügen)",
+    obDone: "Alles klar",
+  },
 };
 
 let uiLang = "ko";
 const S = () => I18N[uiLang];
 const pickUI = (x) => pick(x, uiLang);
+
+// ---------- 테마 ----------
+const THEME_IDS = ["auto", "light", "dark", "ocean", "forest"];
+const THEME_LABEL = { ko: "테마", en: "Theme", ja: "テーマ", es: "Tema", zh: "主题", fr: "Thème", de: "Thema" };
+const THEME_NAMES = {
+  auto: { ko: "자동 (시스템)", en: "Auto (system)", ja: "自動(システム)", es: "Automático (sistema)", zh: "自动(跟随系统)", fr: "Auto (système)", de: "Automatisch (System)" },
+  light: { ko: "라이트", en: "Light", ja: "ライト", es: "Claro", zh: "浅色", fr: "Clair", de: "Hell" },
+  dark: { ko: "다크", en: "Dark", ja: "ダーク", es: "Oscuro", zh: "深色", fr: "Sombre", de: "Dunkel" },
+  ocean: { ko: "오션 블루", en: "Ocean blue", ja: "オーシャンブルー", es: "Azul océano", zh: "海洋蓝", fr: "Bleu océan", de: "Ozeanblau" },
+  forest: { ko: "포레스트 그린", en: "Forest green", ja: "フォレストグリーン", es: "Verde bosque", zh: "森林绿", fr: "Vert forêt", de: "Waldgrün" },
+};
+let theme = "auto";
+
+function applyTheme() {
+  document.documentElement.dataset.theme = theme;
+}
+
+function bindTheme() {
+  $("themeSelect").addEventListener("input", () => {
+    const v = $("themeSelect").value;
+    if (!THEME_IDS.includes(v)) return;
+    theme = v;
+    if (hasChrome) chrome.storage.local.set({ theme });
+    applyTheme();
+  });
+}
 
 const state = {
   typeId: OUTPUT_TYPES[0].id,
@@ -234,7 +524,29 @@ function applyI18n() {
   document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
     el.placeholder = S()[el.dataset.i18nPh];
   });
-  $("langToggle").textContent = S().toggleLabel;
+  // UI 언어 드롭다운 — 각 언어의 원어 명칭으로 표기
+  const lt = $("langToggle");
+  if (lt.options.length !== UI_LANGS.length) {
+    lt.innerHTML = "";
+    for (const code of UI_LANGS) {
+      const o = document.createElement("option");
+      o.value = code;
+      o.textContent = OUTPUT_LANGS[code].label;
+      lt.appendChild(o);
+    }
+  }
+  lt.value = uiLang;
+  // 테마 select
+  $("themeLabel").textContent = pick(THEME_LABEL, uiLang);
+  const ts = $("themeSelect");
+  ts.innerHTML = "";
+  for (const id of THEME_IDS) {
+    const o = document.createElement("option");
+    o.value = id;
+    o.textContent = pick(THEME_NAMES[id], uiLang);
+    ts.appendChild(o);
+  }
+  ts.value = theme;
   $("settingsToggle").title = S().settings;
   $("settingsToggle").setAttribute("aria-label", S().settings);
   fillDatalist("audienceList", S().audienceOptions);
@@ -509,12 +821,14 @@ function swapSuggestedValues(fromLang, toLang) {
   }
 }
 
-const UI_LANGS = ["ko", "en", "ja"]; // 토글 순환 순서
+const UI_LANGS = ["ko", "en", "ja", "es", "zh", "fr", "de"];
 
 function bindLangToggle() {
-  $("langToggle").addEventListener("click", () => {
+  $("langToggle").addEventListener("input", () => {
     const prev = uiLang;
-    uiLang = UI_LANGS[(UI_LANGS.indexOf(uiLang) + 1) % UI_LANGS.length];
+    const next = $("langToggle").value;
+    if (!UI_LANGS.includes(next) || next === prev) return;
+    uiLang = next;
     if (hasChrome) chrome.storage.local.set({ uiLang });
     // UI 언어 전환 시 결과물 언어도 함께 전환 — 셀렉트에서 개별 변경은 그대로 가능
     state.common.language = uiLang;
@@ -606,7 +920,8 @@ async function renderHistory() {
     wrap.appendChild(p);
     return;
   }
-  const locale = { ko: "ko-KR", ja: "ja-JP" }[uiLang] || "en-US";
+  const locale =
+    { ko: "ko-KR", ja: "ja-JP", es: "es-ES", zh: "zh-CN", fr: "fr-FR", de: "de-DE" }[uiLang] || "en-US";
   for (const h of history) {
     const type = OUTPUT_TYPES.find((x) => x.id === h.typeId);
     const item = document.createElement("button");
@@ -688,8 +1003,9 @@ function saveState() {
 
 function detectUiLang() {
   const l = (navigator.language || "").toLowerCase();
-  if (l.startsWith("ko")) return "ko";
-  if (l.startsWith("ja")) return "ja";
+  for (const code of ["ko", "ja", "es", "zh", "fr", "de"]) {
+    if (l.startsWith(code)) return code;
+  }
   return "en";
 }
 
@@ -698,8 +1014,9 @@ async function loadState() {
     uiLang = detectUiLang();
     return;
   }
-  const stored = await chrome.storage.local.get(["lastState", "uiLang"]);
+  const stored = await chrome.storage.local.get(["lastState", "uiLang", "theme"]);
   uiLang = UI_LANGS.includes(stored.uiLang) ? stored.uiLang : detectUiLang();
+  if (THEME_IDS.includes(stored.theme)) theme = stored.theme;
   const lastState = stored.lastState;
   if (!lastState) {
     // 첫 실행: 결과물 언어를 UI 언어에 맞춤
@@ -711,7 +1028,25 @@ async function loadState() {
     : OUTPUT_TYPES[0].id;
   state.common = { ...state.common, ...lastState.common };
   state.byType = migrateDesignNames(lastState.byType || {});
+  // 구버전(교사 특화 예시) 시절 저장된 대상/목적 값은 일회성으로 비운다
+  if (LEGACY_EXAMPLES.has((state.common.audience || "").trim())) state.common.audience = "";
+  if (LEGACY_EXAMPLES.has((state.common.purpose || "").trim())) state.common.purpose = "";
 }
+
+const LEGACY_EXAMPLES = new Set([
+  "고등학교 1학년 정보 수업 학생",
+  "고등학교 인공지능기초 수업 학생",
+  "고등학교 공학일반 수업 학생",
+  "동료 교사 (연수)",
+  "학부모",
+  "처음 배우는 일반인",
+  "새 개념 도입",
+  "단원 복습",
+  "시험 대비",
+  "수행평가 준비",
+  "교사 연수 자료",
+  "발표 자료",
+]);
 
 // 구 버전에서 저장된 디자인 스타일명을 새 이름으로 변환
 const LEGACY_DESIGN = { "친근한 수업용 (밝고 따뜻한 톤)": "밝고 친근한 톤" };
@@ -802,12 +1137,14 @@ function bindPresets() {
 // ---------- 초기화 ----------
 (async function init() {
   await loadState();
+  applyTheme();
   applyI18n();
   applyCommonToInputs();
   renderTypeGrid();
   renderTypeFields();
   bindCommonFields();
   bindLangToggle();
+  bindTheme();
   bindCopy();
   bindInsert();
   bindSettings();

@@ -26,8 +26,26 @@
   --mono: "Geist Mono", "SF Mono", "JetBrains Mono", ui-monospace, Consolas, monospace;
 }
 
+/* 테마 — data-theme 속성으로 전환. auto는 시스템 설정을 따른다 */
+:root[data-theme="dark"] {
+  --bg: #191817;
+  --card: #201f1d;
+  --text: #edebe8;
+  --muted: #8f8b84;
+  --border: #2e2c29;
+  --border-strong: #45423c;
+  --ink: #edebe8;
+  --ink-hover: #ffffff;
+  --ink-text: #191817;
+  --note-bg: rgba(94, 164, 211, 0.12);
+  --note-text: #7fb4dc;
+  --warn-bg: rgba(227, 179, 65, 0.1);
+  --warn-text: #d8ad4e;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root[data-theme="auto"],
+  :root:not([data-theme]) {
     --bg: #191817;
     --card: #201f1d;
     --text: #edebe8;
@@ -42,6 +60,34 @@
     --warn-bg: rgba(227, 179, 65, 0.1);
     --warn-text: #d8ad4e;
   }
+}
+
+:root[data-theme="ocean"] {
+  --bg: #f2f5f8;
+  --card: #ffffff;
+  --text: #22303c;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --border-strong: #c9d5e0;
+  --ink: #0f3a5f;
+  --ink-hover: #164e7e;
+  --ink-text: #ffffff;
+  --note-bg: #e0f2fe;
+  --note-text: #075985;
+}
+
+:root[data-theme="forest"] {
+  --bg: #f4f6f2;
+  --card: #ffffff;
+  --text: #26302a;
+  --muted: #6b7568;
+  --border: #e3e8e0;
+  --border-strong: #c8d2c4;
+  --ink: #1e4d38;
+  --ink-hover: #2a6349;
+  --ink-text: #ffffff;
+  --note-bg: #e7f3e7;
+  --note-text: #2f6b3a;
 }
 
 * { box-sizing: border-box; }
@@ -155,12 +201,11 @@ button:disabled {
 
 .lang-toggle {
   flex-shrink: 0;
-  padding: 3px 11px;
-  font-family: var(--mono);
-  font-size: 10px;
+  width: auto;
+  padding: 3px 9px;
+  font-family: inherit;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   background: transparent;
   border: 1px solid var(--border-strong);
   border-radius: 999px;

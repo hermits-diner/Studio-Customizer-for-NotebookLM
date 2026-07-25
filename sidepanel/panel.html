@@ -10,7 +10,7 @@
     <div class="header-row">
       <h1>Studio Customizer <span class="brand-b">for NotebookLM</span></h1>
       <div class="header-actions">
-        <button id="langToggle" class="lang-toggle" title="Language / 언어">EN</button>
+        <select id="langToggle" class="lang-toggle" title="Language" aria-label="Language"></select>
         <button id="settingsToggle" class="icon-btn" title="Settings / 설정" aria-label="Settings">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </button>
@@ -104,6 +104,10 @@
 
   <section class="card" id="settingsCard" hidden>
     <h2><span class="num">06</span><span class="lbl" data-i18n="settings"></span></h2>
+    <div class="field">
+      <label for="themeSelect" id="themeLabel"></label>
+      <select id="themeSelect"></select>
+    </div>
     <div class="field">
       <label for="geminiKey" data-i18n="apiKey"></label>
       <input id="geminiKey" type="password" autocomplete="off" data-i18n-ph="apiKeyPh" />
