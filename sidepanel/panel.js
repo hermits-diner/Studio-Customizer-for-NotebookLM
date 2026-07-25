@@ -430,6 +430,8 @@ function bindLangToggle() {
   $("langToggle").addEventListener("click", () => {
     uiLang = uiLang === "ko" ? "en" : "ko";
     if (hasChrome) chrome.storage.local.set({ uiLang });
+    // UI 언어 전환 시 결과물 언어도 함께 전환 — 셀렉트에서 개별 변경은 그대로 가능
+    state.common.language = uiLang === "en" ? "영어" : "한국어";
     applyI18n();
     renderTypeGrid();
     renderTypeFields();
