@@ -1,0 +1,8 @@
+{
+  "textareas": [
+    "[role='dialog'] textarea",
+    "mat-dialog-container textarea",
+    "mat-sidenav textarea",
+    "textarea"
+  ]
+}

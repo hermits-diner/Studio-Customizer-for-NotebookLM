@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Studio Customizer for NotebookLM</title>
+  <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+  <header>
+    <div class="header-row">
+      <h1>Studio Customizer <span class="brand-b">for NotebookLM</span></h1>
+      <div class="header-actions">
+        <button id="langToggle" class="lang-toggle" title="Language / 언어">EN</button>
+        <button id="settingsToggle" class="icon-btn" title="Settings / 설정" aria-label="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </div>
+    <p class="sub" data-i18n="subtitle"></p>
+  </header>
+
+  <section class="card onboarding" id="onboardingCard" hidden>
+    <h2><span class="lbl" data-i18n="obTitle"></span></h2>
+    <ol class="ob-steps">
+      <li data-i18n="obStep1"></li>
+      <li data-i18n="obStep2"></li>
+      <li data-i18n="obStep3"></li>
+    </ol>
+    <button id="obDoneBtn" class="primary" data-i18n="obDone"></button>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">01</span><span class="lbl" data-i18n="step1"></span></h2>
+    <div id="typeGrid" class="type-grid"></div>
+    <p id="typeNote" class="note" hidden></p>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">02</span><span class="lbl" data-i18n="step2"></span></h2>
+    <div class="field">
+      <label for="audience" data-i18n="audience"></label>
+      <input id="audience" list="audienceList" data-i18n-ph="audiencePh" />
+      <datalist id="audienceList"></datalist>
+    </div>
+    <div class="field">
+      <label for="purpose" data-i18n="purpose"></label>
+      <input id="purpose" list="purposeList" data-i18n-ph="purposePh" />
+      <datalist id="purposeList"></datalist>
+    </div>
+
+    <div id="typeFields"></div>
+
+    <div class="field">
+      <label for="context" data-i18n="context"></label>
+      <textarea id="context" rows="3" data-i18n-ph="contextPh"></textarea>
+    </div>
+    <div class="field">
+      <label for="language" data-i18n="outputLang"></label>
+      <select id="language"></select>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">03</span><span class="lbl" data-i18n="step3"></span></h2>
+    <textarea id="preview" rows="12" spellcheck="false"></textarea>
+    <div class="preview-footer">
+      <span id="charCount" class="char-count">0</span>
+      <div class="footer-actions">
+        <button id="refineBtn" data-i18n="refine"></button>
+        <button id="copyBtn" data-i18n="copy"></button>
+        <button id="insertBtn" class="primary" data-i18n="insert"></button>
+      </div>
+    </div>
+    <p id="charWarn" class="note warn" hidden data-i18n="charWarn"></p>
+    <p id="refineNote" class="note warn" hidden></p>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">04</span><span class="lbl" data-i18n="presets"></span></h2>
+    <div class="preset-row">
+      <select id="presetSelect"></select>
+      <button id="presetSaveBtn" data-i18n="save"></button>
+      <button id="presetDeleteBtn" data-i18n="del"></button>
+    </div>
+    <div id="presetNameRow" class="preset-row" hidden>
+      <input id="presetName" data-i18n-ph="presetNamePh" />
+      <button id="presetConfirmBtn" class="primary" data-i18n="ok"></button>
+      <button id="presetCancelBtn" data-i18n="cancel"></button>
+    </div>
+    <div class="preset-row">
+      <button id="presetExportBtn" data-i18n="exportBtn"></button>
+      <button id="presetImportBtn" data-i18n="importBtn"></button>
+      <input id="presetFile" type="file" accept="application/json" hidden />
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">05</span><span class="lbl" data-i18n="history"></span></h2>
+    <div id="historyList" class="history-list"></div>
+    <div class="preset-row">
+      <button id="historyClearBtn" data-i18n="clear"></button>
+    </div>
+  </section>
+
+  <section class="card" id="settingsCard" hidden>
+    <h2><span class="num">06</span><span class="lbl" data-i18n="settings"></span></h2>
+    <div class="field">
+      <label for="geminiKey" data-i18n="apiKey"></label>
+      <input id="geminiKey" type="password" autocomplete="off" data-i18n-ph="apiKeyPh" />
+    </div>
+    <div class="field">
+      <label for="geminiModel" data-i18n="model"></label>
+      <input id="geminiModel" placeholder="gemini-2.5-flash" />
+    </div>
+    <div class="preset-row">
+      <button id="settingsSaveBtn" class="primary" data-i18n="save"></button>
+    </div>
+    <p class="note" data-i18n="apiPrivacy"></p>
+  </section>
+
+  <script src="templates.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

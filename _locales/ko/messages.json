@@ -1,0 +1,8 @@
+{
+  "extDesc": {
+    "message": "목적·대상·맥락을 입력하면 NotebookLM 스튜디오 산출물별 맞춤설정 프롬프트를 만들고, 클릭 한 번으로 삽입해 줍니다."
+  },
+  "actionTitle": {
+    "message": "Studio Customizer for NotebookLM 열기"
+  }
+}

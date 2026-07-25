@@ -1,0 +1,8 @@
+{
+  "extDesc": {
+    "message": "Generate tailored customization prompts for NotebookLM Studio outputs from your purpose, audience, and context — and insert them with one click."
+  },
+  "actionTitle": {
+    "message": "Open Studio Customizer for NotebookLM"
+  }
+}

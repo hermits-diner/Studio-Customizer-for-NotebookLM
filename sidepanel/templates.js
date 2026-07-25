@@ -1,0 +1,532 @@
+// 산출물별 프롬프트 템플릿 정의 (한/영 이중 언어).
+// 프롬프트 문구를 고치려면 build() 안의 T("한국어", "English") 쌍을 수정하면 된다.
+
+"use strict";
+
+const t = (v) => (v == null ? "" : String(v).trim());
+const L = (label, v) => (t(v) ? `- ${label}: ${t(v)}` : "");
+const joinLines = (parts) => parts.filter((p) => t(p)).join("\n");
+
+// 이중 언어 문자열 {ko, en}
+const B = (ko, en) => ({ ko, en });
+const pick = (x, lang) =>
+  x && typeof x === "object" ? (lang === "en" ? x.en ?? x.ko : x.ko) : x;
+
+// 프롬프트(결과물) 언어 — c.language는 '한국어' | '영어' (canonical)
+const langOf = (c) => (c.language === "영어" ? "en" : "ko");
+
+function assemble(intro, lines, c, langLine) {
+  const lang = langOf(c);
+  const T = (ko, en) => (lang === "en" ? en : ko);
+  let out = joinLines([
+    intro,
+    L(T("대상", "Audience"), c.audience),
+    L(T("목적", "Purpose"), c.purpose),
+    ...lines,
+    langLine !== undefined
+      ? langLine
+      : T("- 결과물은 자연스러운 한국어로 작성할 것", "- Write everything in natural, fluent English"),
+  ]);
+  if (t(c.context)) out += `\n\n${T("추가 맥락", "Additional context")}: ${t(c.context)}`;
+  return out;
+}
+
+// 디자인·서식 산출물에 기본 적용되는 스타일 지시문.
+// 매체별로 문구가 다르다: screen(슬라이드·동영상·인포그래픽) / doc(보고서) / table(데이터 표)
+const DESIGN_STYLES = {
+  "세련된 미니멀 (애플·Figma풍)": {
+    en: "Refined minimal (Apple/Figma)",
+    screen: [
+      B(
+        "- 디자인: 애플 프레젠테이션처럼 세련된 미니멀 스타일 — 넉넉한 여백, 화면당 핵심 메시지 1개, 차분한 배경에 포인트 컬러 1가지만 사용할 것",
+        "- Design: refined, Apple-keynote-style minimalism — generous whitespace, one key message per screen, calm background with a single accent color"
+      ),
+      B(
+        "- 폰트·레이아웃: 크고 굵은 산세리프 제목과 가는 본문의 대비를 살리고, Figma 디자인 시스템처럼 일관된 그리드 정렬을 유지할 것. 클립아트·화려한 그라데이션·장식 요소 금지",
+        "- Type & layout: strong contrast between bold sans-serif headlines and light body text, with consistent Figma-like grid alignment. No clip art, flashy gradients, or ornaments"
+      ),
+    ],
+    doc: [
+      B(
+        "- 문서 서식: 절제된 미니멀 스타일 — 제목·소제목·본문의 위계를 명확히 하고, 단락 사이 여백을 넉넉히 둘 것. 강조는 굵은 글씨만 사용하고 이모지·장식 기호·과한 구분선은 쓰지 말 것",
+        "- Document style: restrained minimalism — clear heading hierarchy and generous paragraph spacing. Emphasize with bold only; no emoji, decorative symbols, or heavy dividers"
+      ),
+    ],
+    table: [
+      B(
+        "- 표 서식: 불필요한 장식 없이 머리행만 강조한 깔끔한 미니멀 표로, 열 이름은 짧고 명확하게 쓸 것",
+        "- Table style: clean and minimal with only the header row emphasized; keep column names short and clear"
+      ),
+    ],
+  },
+  "밝고 친근한 톤": {
+    en: "Bright & friendly",
+    screen: [
+      B(
+        "- 디자인: 밝고 따뜻한 파스텔 톤과 둥근 도형, 단순한 아이콘으로 친근한 분위기로 구성할 것",
+        "- Design: bright, warm pastel tones with rounded shapes and simple icons for a friendly mood"
+      ),
+      B(
+        "- 텍스트는 크고 읽기 쉽게, 화면당 정보량은 적게 유지할 것",
+        "- Keep text large and readable, with little information per screen"
+      ),
+    ],
+    doc: [
+      B(
+        "- 문서 서식: 짧은 단락과 친근한 소제목으로 구성하고, 핵심 내용마다 한 줄 요약을 덧붙여 읽기 쉽게 만들 것",
+        "- Document style: short paragraphs with friendly subheadings; add a one-line takeaway after each key point"
+      ),
+    ],
+    table: [
+      B(
+        "- 표 서식: 행 수를 적게 유지해 한눈에 들어오게 하고, 어려운 용어에는 괄호로 쉬운 설명을 덧붙일 것",
+        "- Table style: keep rows few enough to scan at a glance; add plain-language hints in parentheses for difficult terms"
+      ),
+    ],
+  },
+  "다크·테크 (개발 발표풍)": {
+    en: "Dark tech (developer talk)",
+    screen: [
+      B(
+        "- 디자인: 어두운 배경에 밝은 텍스트, 네온 포인트 컬러 1가지, 다이어그램 중심의 테크 발표 스타일로 구성할 것",
+        "- Design: dark background with light text, one neon accent color, in a diagram-centric tech-talk style"
+      ),
+      B(
+        "- 산세리프 제목과 모노스페이스(코드) 폰트의 대비를 활용하고 장식 요소는 최소화할 것",
+        "- Contrast sans-serif headings with monospace (code) type; minimize decoration"
+      ),
+    ],
+    doc: [
+      B(
+        "- 문서 서식: 기술 문서 스타일 — 간결한 개조식 위주로 쓰고, 코드·명령어는 코드 블록으로 구분하며 핵심 용어는 원어를 병기할 것",
+        "- Document style: technical-doc style — terse bullets, code/commands in code blocks, key terms glossed in their original language"
+      ),
+    ],
+    table: [
+      B(
+        "- 표 서식: 기술 비교표 스타일 — 코드·수치는 그대로 표기하고, 셀 내용은 간결한 키워드 위주로 쓸 것",
+        "- Table style: technical comparison table — keep code and numbers verbatim, cells keyword-brief"
+      ),
+    ],
+  },
+};
+
+const DESIGN_FIELD = {
+  key: "design",
+  label: B("디자인 스타일", "Design style"),
+  type: "select",
+  noTranslate: true, // 값은 항상 한국어 키로 저장·조회
+  options: Object.entries(DESIGN_STYLES).map(([ko, v]) => B(ko, v.en)),
+  default: "세련된 미니멀 (애플·Figma풍)",
+};
+
+const designLines = (c, medium = "screen") => {
+  const lang = langOf(c);
+  const st = DESIGN_STYLES[t(c.design)];
+  return st ? (st[medium] || []).map((x) => pick(x, lang)) : [];
+};
+
+// 산출물 그리드용 라인 아이콘 (feather 스타일, currentColor)
+const ic = (inner) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+
+const OUTPUT_TYPES = [
+  {
+    id: "audio",
+    name: B("AI 오디오 오버뷰", "Audio Overview"),
+    icon: ic('<line x1="4" y1="10" x2="4" y2="14"/><line x1="8" y1="7" x2="8" y2="17"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="16" y1="7" x2="16" y2="17"/><line x1="20" y1="10" x2="20" y2="14"/>'),
+    fields: [
+      {
+        key: "format", label: B("진행 형식", "Format"), type: "select",
+        options: [
+          B("두 진행자 심층 토론", "In-depth discussion (two hosts)"),
+          B("간결한 브리핑(1인)", "Concise solo briefing"),
+          B("비판적 검토", "Critical review"),
+          B("찬반 토론", "Debate (pro vs. con)"),
+        ],
+      },
+      {
+        key: "duration", label: B("길이", "Length"), type: "select",
+        options: [
+          B("짧게 (5분 내외)", "Short (~5 min)"),
+          B("보통 (10분 내외)", "Medium (~10 min)"),
+          B("길게 (15분 이상)", "Long (15+ min)"),
+        ],
+      },
+      { key: "focus", label: B("반드시 다룰 주제", "Must-cover topics"), type: "text", placeholder: B("예: 핵심 개념 비교, 최신 동향", "e.g. comparing core concepts, recent trends") },
+      { key: "situation", label: B("활용 상황", "Listening context"), type: "text", placeholder: B("예: 출퇴근길 청취, 회의 전 브리핑", "e.g. commute listening, pre-meeting briefing") },
+    ],
+    build(c) {
+      const T = (ko, en) => (langOf(c) === "en" ? en : ko);
+      return assemble(
+        T("다음 조건에 맞는 오디오 오버뷰를 만들어 주세요.", "Create an Audio Overview with the following requirements."),
+        [
+          L(T("진행 형식", "Format"), c.format),
+          L(T("길이", "Length"), c.duration),
+          L(T("반드시 다룰 주제", "Must-cover topics"), c.focus),
+          L(T("활용 상황", "Listening context"), c.situation),
+          T("- 어려운 용어는 대상 수준에 맞는 구체적 예시로 풀어서 설명할 것",
+            "- Explain difficult terms with concrete examples suited to the audience"),
+          T("- 소스에 없는 내용은 추측해서 말하지 말 것",
+            "- Do not speculate beyond what the sources say"),
+        ],
+        c,
+        T("- 자연스러운 한국어로 진행할 것", "- Host the conversation in natural, fluent English")
+      );
+    },
+  },
+  {
+    id: "slides",
+    name: B("슬라이드 자료", "Slides"),
+    icon: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/>'),
+    fields: [
+      { key: "count", label: B("슬라이드 장수", "Slide count"), type: "number", placeholder: B("10", "10") },
+      { key: "time", label: B("발표 시간", "Presentation time"), type: "text", placeholder: B("예: 15분 발표", "e.g. a 15-minute talk") },
+      {
+        key: "presenter", label: B("용도", "Use case"), type: "select",
+        options: [
+          B("강의·발표용", "Lecture / presentation"),
+          B("보고·브리핑용", "Report / briefing"),
+          B("자습·복습용", "Self-study / review"),
+          B("교육·워크숍용", "Training / workshop"),
+        ],
+      },
+      {
+        key: "density", label: B("텍스트 밀도", "Text density"), type: "select",
+        options: [
+          B("키워드 중심(텍스트 최소)", "Keywords only (minimal text)"),
+          B("핵심 문장 서술", "Key sentences"),
+          B("시각 자료 위주", "Visual-first"),
+        ],
+      },
+      { key: "focus", label: B("반드시 포함할 내용", "Must include"), type: "text", placeholder: B("예: 실습 예제, 핵심 수치", "e.g. hands-on examples, key figures") },
+      DESIGN_FIELD,
+    ],
+    build(c) {
+      const T = (ko, en) => (langOf(c) === "en" ? en : ko);
+      return assemble(
+        T("다음 조건에 맞는 슬라이드 자료를 만들어 주세요.", "Create presentation slides with the following requirements."),
+        [
+          L(T("분량", "Slide count"), t(c.count) ? T(`${t(c.count)}장 내외`, `about ${t(c.count)} slides`) : ""),
+          L(T("발표 시간", "Presentation time"), c.time),
+          L(T("용도", "Use case"), c.presenter),
+          L(T("텍스트 밀도", "Text density"), c.density),
+          L(T("반드시 포함할 내용", "Must include"), c.focus),
+          ...designLines(c),
+          T("- 도입(동기 유발) → 전개 → 정리(핵심 요약) 흐름으로 구성할 것",
+            "- Structure the deck as hook → main content → summary of key takeaways"),
+        ],
+        c
+      );
+    },
+  },
+  {
+    id: "video",
+    name: B("동영상 개요", "Video Overview"),
+    icon: ic('<rect x="2" y="5" width="20" height="14" rx="3"/><polygon points="10 9 15 12 10 15" fill="currentColor" stroke="none"/>'),
+    fields: [
+      {
+        key: "duration", label: B("길이", "Length"), type: "select",
+        options: [
+          B("짧게 (3분 내외)", "Short (~3 min)"),
+          B("보통 (5~7분)", "Medium (5–7 min)"),
+          B("길게 (10분 이상)", "Long (10+ min)"),
+        ],
+      },
+      {
+        key: "style", label: B("스타일", "Style"), type: "select",
+        options: [
+          B("개념 설명 중심", "Concept explanation"),
+          B("사례·스토리 중심", "Case & story driven"),
+          B("단계별 튜토리얼", "Step-by-step tutorial"),
+          B("핵심 요약 브리핑", "Key-points briefing"),
+        ],
+      },
+      { key: "focus", label: B("강조할 주제", "Topics to emphasize"), type: "text", placeholder: B("예: 핵심 개념 간의 관계", "e.g. how the key concepts relate") },
+      DESIGN_FIELD,
+    ],
+    build(c) {
+      const T = (ko, en) => (langOf(c) === "en" ? en : ko);
+      return assemble(
+        T("다음 조건에 맞는 동영상 개요를 만들어 주세요.", "Create a Video Overview with the following requirements."),
+        [
+          L(T("길이", "Length"), c.duration),
+          L(T("스타일", "Style"), c.style),
+          L(T("강조할 주제", "Topics to emphasize"), c.focus),
+          ...designLines(c),
+          T("- 첫 30초 안에 이 영상에서 무엇을 배우는지 명확히 제시할 것",
+            "- State clearly what viewers will learn within the first 30 seconds"),
+          T("- 시각 자료(도식, 예시 화면)를 적극 활용하고, 나열식 낭독은 피할 것",
+            "- Use visuals (diagrams, example screens) actively; avoid monotonously reading lists"),
+        ],
+        c,
+        T("- 내레이션은 자연스러운 한국어로 진행할 것", "- Narrate in natural, fluent English")
+      );
+    },
+  },
+  {
+    id: "mindmap",
+    name: B("마인드맵", "Mind Map"),
+    icon: ic('<circle cx="12" cy="12" r="2.5"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="20" r="2"/><line x1="10.2" y1="10.6" x2="6.6" y2="7.4"/><line x1="13.8" y1="10.6" x2="17.4" y2="7.4"/><line x1="12" y1="14.5" x2="12" y2="18"/>'),
+    note: B(
+      "마인드맵에 맞춤설정란이 없으면, 이 프롬프트를 채팅창에 붙여넣어 계층 구조 개요를 먼저 받아 보세요.",
+      "If the mind map has no customization box, paste this prompt into the chat to get a hierarchical outline first."
+    ),
+    fields: [
+      { key: "root", label: B("중심 주제", "Central topic"), type: "text", placeholder: B("예: 문서 전체의 핵심 주제", "e.g. the document's central theme") },
+      {
+        key: "depth", label: B("깊이", "Depth"), type: "select",
+        options: [
+          B("2단계 (대주제-소주제)", "2 levels (main → sub)"),
+          B("3단계", "3 levels"),
+          B("4단계 이상 (세부 개념까지)", "4+ levels (down to details)"),
+        ],
+      },
+      {
+        key: "lens", label: B("구성 관점", "Perspective"), type: "select",
+        options: [
+          B("개념 위계 중심", "Concept hierarchy"),
+          B("시험 출제 포인트 중심", "Exam focus points"),
+          B("프로젝트 작업 분해", "Project task breakdown"),
+          B("원인-결과 관계 중심", "Cause & effect"),
+        ],
+      },
+    ],
+    build(c) {
+      const T = (ko, en) => (langOf(c) === "en" ? en : ko);
+      return assemble(
+        T("소스 내용을 마인드맵(계층 구조)으로 정리해 주세요.", "Organize the source content into a mind map (hierarchical structure)."),
+        [
+          L(T("중심 주제", "Central topic"), c.root),
+          L(T("깊이", "Depth"), c.depth),
+          L(T("구성 관점", "Perspective"), c.lens),
+          T("- 각 가지의 이름은 소스에 실제로 등장하는 용어를 사용할 것",
+            "- Name each branch using terms that actually appear in the sources"),
+          T("- 같은 수준의 가지끼리는 분류 기준을 통일할 것",
+            "- Keep one consistent classification criterion among sibling branches"),
+        ],
+        c
+      );
+    },
+  },
+  {
+    id: "report",
+    name: B("보고서", "Report"),
+    icon: ic('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>'),
+    fields: [
+      {
+        key: "kind", label: B("문서 유형", "Document type"), type: "select",
+        options: [
+          B("핵심 요약 정리", "Key-points summary"),
+          B("실무 브리핑", "Executive briefing"),
+          B("학습·참고 자료", "Study / reference material"),
+          B("시험 대비 정리", "Exam review notes"),
+          B("안내문 초안", "Announcement draft"),
+        ],
+      },
+      { key: "structure", label: B("원하는 목차", "Outline"), type: "text", placeholder: B("예: 개요 → 핵심 내용 → 시사점", "e.g. overview → key points → implications") },
+      {
+        key: "style", label: B("문체", "Writing style"), type: "select",
+        options: [
+          B("개조식(~함, ~임)", "Terse bullet style"),
+          B("서술식", "Narrative prose"),
+          B("친근한 설명체", "Friendly explanatory tone"),
+        ],
+      },
+      { key: "length", label: B("분량", "Length"), type: "text", placeholder: B("예: A4 2장 이내", "e.g. within 2 pages") },
+      DESIGN_FIELD,
+    ],
+    build(c) {
+      const T = (ko, en) => (langOf(c) === "en" ? en : ko);
+      return assemble(
+        T("다음 조건에 맞는 보고서를 작성해 주세요.", "Write a report with the following requirements."),
+        [
+          L(T("문서 유형", "Document type"), c.kind),
+          L(T("목차 구성", "Outline"), c.structure),
+          L(T("문체", "Writing style"), c.style),
+          L(T("분량", "Length"), c.length),
+          ...designLines(c, "doc"),
+          T("- 소스에 근거한 내용만 쓰고, 주요 내용에는 출처(어느 소스인지)를 표시할 것",
+            "- Use only source-grounded content and cite which source each key point comes from"),
+        ],
+        c
+      );
+    },
+  },
+  {
+    id: "flashcards",
+    name: B("플래시카드", "Flashcards"),
+    icon: ic('<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>'),
+    fields: [
+      { key: "count", label: B("카드 수", "Number of cards"), type: "number", placeholder: B("20", "20") },
+      {
+        key: "form", label: B("카드 형식", "Card format"), type: "select",
+        options: [
+          B("용어 → 정의", "Term → definition"),
+          B("질문 → 답", "Question → answer"),
+          B("빈칸 채우기 혼합", "Mixed with fill-in-the-blank"),
+        ],
+      },
+      {
+        key: "difficulty", label: B("난이도", "Difficulty"), type: "select",
+        options: [
+          B("기초 용어 위주", "Basic terms"),
+          B("기초 + 응용 혼합", "Basic + applied mix"),
+          B("심화 포함", "Including advanced"),
+        ],
+      },
+      { key: "scope", label: B("범위 제한", "Scope"), type: "text", placeholder: B("예: 3장 핵심 용어만", "e.g. chapter 3 key terms only") },
+    ],
+    build(c) {
+      const T = (ko, en) => (langOf(c) === "en" ? en : ko);
+      return assemble(
+        T("다음 조건에 맞는 플래시카드를 만들어 주세요.", "Create flashcards with the following requirements."),
+        [
+          L(T("카드 수", "Number of cards"), t(c.count) ? T(`${t(c.count)}장`, `${t(c.count)} cards`) : ""),
+          L(T("형식", "Format"), c.form),
+          L(T("난이도", "Difficulty"), c.difficulty),
+          L(T("범위", "Scope"), c.scope),
+          T("- 앞면은 짧고 명확하게, 뒷면은 핵심만 2~3문장 이내로 쓸 것",
+            "- Keep fronts short and clear; keep backs to 2–3 essential sentences"),
+          T("- 서로 헷갈리기 쉬운 개념은 짝지어 연달아 배치할 것",
+            "- Place easily-confused concepts back to back as pairs"),
+        ],
+        c
+      );
+    },
+  },
+  {
+    id: "quiz",
+    name: B("퀴즈", "Quiz"),
+    icon: ic('<circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.9 2.9 0 0 1 5.6 1c0 1.9-2.8 2.4-2.8 4"/><line x1="12" y1="17.5" x2="12.01" y2="17.5"/>'),
+    fields: [
+      { key: "count", label: B("문항 수", "Number of questions"), type: "number", placeholder: B("10", "10") },
+      {
+        key: "types", label: B("문항 유형", "Question types"), type: "select",
+        options: [
+          B("선다형 위주", "Mostly multiple-choice"),
+          B("선다형 + 단답형 혼합", "Multiple-choice + short answer"),
+          B("OX + 선다형 혼합", "True/false + multiple-choice"),
+          B("서술형 포함", "Including open-ended"),
+        ],
+      },
+      {
+        key: "difficulty", label: B("난이도 배분", "Difficulty mix"), type: "select",
+        options: [
+          B("기초 위주", "Mostly basic"),
+          B("기본 70% + 응용 30%", "70% basic + 30% applied"),
+          B("응용·심화 위주", "Mostly applied/advanced"),
+        ],
+      },
+      { key: "misconception", label: B("오답 선택지에 흔한 오개념 반영", "Base distractors on common misconceptions"), type: "checkbox" },
+      { key: "explanation", label: B("문항별 해설 포함", "Include explanations per question"), type: "checkbox" },
+    ],
+    build(c) {
+      const T = (ko, en) => (langOf(c) === "en" ? en : ko);
+      return assemble(
+        T("다음 조건에 맞는 퀴즈를 출제해 주세요.", "Create a quiz with the following requirements."),
+        [
+          L(T("문항 수", "Number of questions"), t(c.count) ? T(`총 ${t(c.count)}문항`, `${t(c.count)} questions in total`) : ""),
+          L(T("문항 유형", "Question types"), c.types),
+          L(T("난이도 배분", "Difficulty mix"), c.difficulty),
+          c.misconception
+            ? T("- 오답 선택지는 학습자가 실제로 자주 하는 오개념을 반영해 만들 것",
+                "- Craft wrong-answer options from misconceptions learners actually have")
+            : "",
+          c.explanation
+            ? T("- 각 문항에 정답 근거와 해설을 함께 제시할 것",
+                "- Provide the rationale and an explanation with each question")
+            : "",
+          T("- 소스에 없는 내용은 출제하지 말 것", "- Do not test anything not covered in the sources"),
+          T("- 문항 간 난이도가 점진적으로 올라가도록 배치할 것", "- Order questions from easier to harder"),
+        ],
+        c
+      );
+    },
+  },
+  {
+    id: "infographic",
+    name: B("인포그래픽", "Infographic"),
+    icon: ic('<line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="9"/><line x1="3" y1="20" x2="21" y2="20"/>'),
+    note: B(
+      "이미지 생성 특성상 한글이 간혹 깨질 수 있어요. 깨지면 같은 프롬프트로 다시 생성하는 것이 가장 효과적입니다.",
+      "Image generation can occasionally garble text. If that happens, regenerating with the same prompt is the most effective fix."
+    ),
+    fields: [
+      {
+        key: "style", label: B("구성 방식", "Layout"), type: "select",
+        options: [
+          B("프로세스·단계형", "Process / steps"),
+          B("비교형", "Comparison"),
+          B("타임라인형", "Timeline"),
+          B("통계·수치 중심", "Stats & numbers"),
+        ],
+      },
+      { key: "emphasis", label: B("강조할 핵심", "Key emphasis"), type: "text", placeholder: B("예: 3가지 핵심 원리, 주요 수치", "e.g. 3 core principles, key figures") },
+      {
+        key: "textAmount", label: B("텍스트 양", "Text amount"), type: "select",
+        options: [
+          B("텍스트 최소화(도식 위주)", "Minimal text (diagram-first)"),
+          B("보통(짧은 설명 포함)", "Moderate (short captions)"),
+        ],
+      },
+      DESIGN_FIELD,
+    ],
+    build(c) {
+      const T = (ko, en) => (langOf(c) === "en" ? en : ko);
+      return assemble(
+        T("다음 조건에 맞는 인포그래픽을 만들어 주세요.", "Create an infographic with the following requirements."),
+        [
+          L(T("구성 방식", "Layout"), c.style),
+          L(T("강조할 핵심", "Key emphasis"), c.emphasis),
+          L(T("텍스트 양", "Text amount"), c.textAmount),
+          ...designLines(c),
+          T("- 한글 표기(가장 중요): 모든 텍스트는 정확한 한국어 단어로만, 또렷한 고딕체로 표기할 것. 글자가 뭉개지거나 깨진 자형, 존재하지 않는 글자가 있으면 안 됨",
+            "- Text accuracy (critical): render all text as real, correctly-spelled words in a clean sans-serif; no garbled, distorted, or invented glyphs"),
+          T("- 긴 문장 대신 짧은 키워드를 크게 표기할 것 (작은 글씨일수록 글자가 깨지기 쉬움)",
+            "- Prefer short, large keywords over long sentences (small text garbles more easily)"),
+          T("- 한눈에 전체 구조가 보이도록 정보를 3~5개 덩어리로 묶을 것",
+            "- Group information into 3–5 chunks so the overall structure reads at a glance"),
+        ],
+        c
+      );
+    },
+  },
+  {
+    id: "table",
+    name: B("데이터 표", "Data Table"),
+    icon: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="10" x2="9" y2="20"/><line x1="15" y1="10" x2="15" y2="20"/>'),
+    fields: [
+      {
+        key: "goal", label: B("표의 목적", "Table purpose"), type: "select",
+        options: [
+          B("항목 간 비교", "Compare items"),
+          B("핵심 내용 요약", "Summarize key content"),
+          B("체크리스트", "Checklist"),
+          B("일정·계획 정리", "Schedule / plan"),
+        ],
+      },
+      { key: "rows", label: B("행 기준", "Rows"), type: "text", placeholder: B("예: 항목·유형별로 한 행", "e.g. one row per item or type") },
+      { key: "cols", label: B("열 구성", "Columns"), type: "text", placeholder: B("예: 정의 / 특징 / 장단점 / 예시", "e.g. definition / features / pros & cons / example") },
+      { key: "sort", label: B("정렬 기준", "Sort order"), type: "text", placeholder: B("예: 등장 순서, 난이도 순", "e.g. order of appearance, by difficulty") },
+      DESIGN_FIELD,
+    ],
+    build(c) {
+      const T = (ko, en) => (langOf(c) === "en" ? en : ko);
+      return assemble(
+        T("소스 내용을 다음 조건의 표로 정리해 주세요.", "Organize the source content into a table with the following requirements."),
+        [
+          L(T("표의 목적", "Table purpose"), c.goal),
+          L(T("행 기준", "Rows"), c.rows),
+          L(T("열 구성", "Columns"), c.cols),
+          L(T("정렬 기준", "Sort order"), c.sort),
+          ...designLines(c, "table"),
+          T("- 셀 내용은 한 줄 요약 수준으로 간결하게 쓸 것", "- Keep each cell to a one-line summary"),
+          T("- 소스에서 확인되지 않는 칸은 비워 두고 임의로 채우지 말 것",
+            "- Leave cells blank rather than inventing unverified content"),
+        ],
+        c
+      );
+    },
+  },
+];
