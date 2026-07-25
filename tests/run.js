@@ -73,6 +73,8 @@ for (const type of OUTPUT_TYPES) {
 
 // --- 디자인 스타일 ---
 check("디자인 기본값 존재", !!DESIGN_STYLES[DESIGN_FIELD.default]);
+check("디자인 스타일 9종", Object.keys(DESIGN_STYLES).length === 9);
+check("디자인 스타일 영문명 모두 존재", Object.values(DESIGN_STYLES).every((s) => typeof s.en === "string" && s.en.length > 0));
 check(
   "모든 디자인 스타일에 screen/doc/table",
   Object.values(DESIGN_STYLES).every((s) => s.screen && s.doc && s.table)

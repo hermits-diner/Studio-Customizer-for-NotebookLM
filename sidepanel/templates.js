@@ -109,6 +109,156 @@ const DESIGN_STYLES = {
       ),
     ],
   },
+  "스위스 그리드 (모던 타이포)": {
+    en: "Swiss grid (modern typographic)",
+    screen: [
+      B(
+        "- 디자인: 스위스 그리드 스타일 — 엄격한 격자 정렬, 비대칭 여백, 흑백 + 강렬한 레드 1색, 큰 산세리프 타이포 중심으로 구성할 것",
+        "- Design: Swiss-grid style — strict grid alignment, asymmetric whitespace, black & white plus one bold red, driven by large sans-serif type"
+      ),
+      B(
+        "- 사진·일러스트보다 타이포그래피와 여백으로 위계를 만들고, 장식 요소는 일절 금지",
+        "- Build hierarchy with typography and whitespace rather than imagery; no decorative elements at all"
+      ),
+    ],
+    doc: [
+      B(
+        "- 문서 서식: 스위스 타이포그래피 스타일 — 번호 매긴 섹션, 정렬된 여백, 굵기 대비로만 강조할 것",
+        "- Document style: Swiss typographic — numbered sections, aligned margins, emphasis through weight contrast only"
+      ),
+    ],
+    table: [
+      B(
+        "- 표 서식: 세로 괘선 없이 가로 헤어라인만 쓰는 스위스 스타일 표로, 숫자는 우측 정렬할 것",
+        "- Table style: Swiss table with horizontal hairlines only (no vertical rules); right-align numbers"
+      ),
+    ],
+  },
+  "에디토리얼 매거진 (세리프·화보풍)": {
+    en: "Editorial magazine",
+    screen: [
+      B(
+        "- 디자인: 고급 매거진 스타일 — 우아한 세리프 대제목, 큰 이미지 1장 중심, 크림·차콜 톤의 절제된 팔레트로 구성할 것",
+        "- Design: high-end magazine style — elegant serif headlines, one large hero image per spread, restrained cream & charcoal palette"
+      ),
+      B(
+        "- 본문은 좁은 컬럼으로 짧게 쓰고, 핵심 문장은 인용구로 크게 뽑아 화보처럼 배치할 것",
+        "- Keep body copy in narrow columns; pull key sentences out as large quotes, laid out like a photo spread"
+      ),
+    ],
+    doc: [
+      B(
+        "- 문서 서식: 매거진 에디토리얼 스타일 — 세리프 제목과 산세리프 본문의 대비, 섹션 사이에 인용구 강조",
+        "- Document style: magazine editorial — serif headings against sans-serif body, pull quotes between sections"
+      ),
+    ],
+    table: [
+      B(
+        "- 표 서식: 매거진 표 스타일 — 세리프 머리행, 은은한 줄무늬 행 배경, 여백을 넉넉하게",
+        "- Table style: magazine table — serif header row, subtle striped rows, generous padding"
+      ),
+    ],
+  },
+  "손그림 스케치노트": {
+    en: "Hand-drawn sketchnote",
+    screen: [
+      B(
+        "- 디자인: 손그림 스케치노트 스타일 — 마커로 그린 듯한 도형·화살표·밑줄, 손글씨 느낌의 제목, 종이 질감 배경으로 구성할 것",
+        "- Design: hand-drawn sketchnote style — marker-like shapes, arrows and underlines, handwritten-feel headings on a paper-textured background"
+      ),
+      B(
+        "- 개념 사이를 화살표와 낙서풍 아이콘으로 연결해 생각의 흐름이 한눈에 보이게 할 것",
+        "- Connect ideas with arrows and doodle icons so the flow of thinking reads at a glance"
+      ),
+    ],
+    doc: [
+      B(
+        "- 문서 서식: 필기 노트 스타일 — 핵심 옆 여백 메모, 형광펜 강조, 중요한 부분에 별표 표시",
+        "- Document style: study-notes style — margin notes beside key points, highlighter emphasis, stars on what matters"
+      ),
+    ],
+    table: [
+      B(
+        "- 표 서식: 손그림 표 스타일 — 자유로운 선, 셀마다 핵심 키워드 하나와 간단한 아이콘",
+        "- Table style: hand-drawn table — loose lines, one keyword plus a simple icon per cell"
+      ),
+    ],
+  },
+  "볼드 팝 (비비드 컬러블록)": {
+    en: "Bold pop (vivid color blocks)",
+    screen: [
+      B(
+        "- 디자인: 볼드 팝 스타일 — 비비드한 컬러 블록, 화면을 가득 채우는 초대형 타이포, 강한 대비로 에너지 있게 구성할 것",
+        "- Design: bold pop style — vivid color blocks, oversized type that fills the frame, high-contrast and energetic"
+      ),
+      B(
+        "- 한 화면의 컬러는 2~3개로 제한하고, 메시지는 한 번에 한 문장씩 크게 던질 것",
+        "- Limit each screen to 2–3 colors; deliver one big statement at a time"
+      ),
+    ],
+    doc: [
+      B(
+        "- 문서 서식: 볼드 에디토리얼 — 컬러 배경의 섹션 헤더, 크고 굵은 소제목, 짧은 단락",
+        "- Document style: bold editorial — color-block section headers, big heavy subheadings, short paragraphs"
+      ),
+    ],
+    table: [
+      B(
+        "- 표 서식: 컬러 블록 표 — 머리행은 진한 배경색, 강조할 셀에만 포인트 컬러를 쓸 것",
+        "- Table style: color-block table — solid header row, accent color reserved for highlighted cells"
+      ),
+    ],
+  },
+  "럭셔리 세리프 (크림·골드)": {
+    en: "Luxury serif (cream & gold)",
+    screen: [
+      B(
+        "- 디자인: 럭셔리 브랜드 스타일 — 크림 배경, 가는 세리프 대제목, 골드 포인트 라인, 넓은 여백으로 고급스럽게 구성할 것",
+        "- Design: luxury-brand style — cream background, fine serif headlines, gold accent rules, expansive whitespace"
+      ),
+      B(
+        "- 요소 수를 최소화하고, 가는 괘선과 자간 넓은 대문자 표기로 격조를 표현할 것",
+        "- Keep elements minimal; convey refinement with thin rules and letterspaced small caps"
+      ),
+    ],
+    doc: [
+      B(
+        "- 문서 서식: 포멀 레터 스타일 — 세리프 본문, 가는 구분선, 절제된 격식 있는 어조",
+        "- Document style: formal letter — serif body, thin dividers, restrained and formal tone"
+      ),
+    ],
+    table: [
+      B(
+        "- 표 서식: 파인 다이닝 메뉴 스타일 — 가는 괘선과 세리프, 점선 리더로 항목과 값을 연결",
+        "- Table style: fine-dining menu — thin rules, serif type, dotted leaders joining items to values"
+      ),
+    ],
+  },
+  "데이터 저널리즘 (차트 중심)": {
+    en: "Data journalism (chart-first)",
+    screen: [
+      B(
+        "- 디자인: 데이터 저널리즘 스타일 — 차트와 수치가 주인공, 명확한 축·단위 표기, 주석으로 인사이트를 짚어줄 것",
+        "- Design: data-journalism style — charts and figures lead, with clear axes and units, insights called out in annotations"
+      ),
+      B(
+        "- 장식 없는 중립 팔레트를 쓰고, 강조할 데이터에만 포인트 컬러 1색을 쓸 것",
+        "- Use a neutral, no-frills palette; one accent color reserved for the key data point"
+      ),
+    ],
+    doc: [
+      B(
+        "- 문서 서식: 리서치 브리프 스타일 — 핵심 수치를 본문에 굵게 인라인 표기하고 출처를 각주로 달 것",
+        "- Document style: research brief — key figures bolded inline, sources footnoted"
+      ),
+    ],
+    table: [
+      B(
+        "- 표 서식: 통계표 스타일 — 숫자 우측 정렬과 단위 명시, 최댓값·최솟값 강조",
+        "- Table style: statistical table — right-aligned numbers with units, min and max highlighted"
+      ),
+    ],
+  },
 };
 
 const DESIGN_FIELD = {
