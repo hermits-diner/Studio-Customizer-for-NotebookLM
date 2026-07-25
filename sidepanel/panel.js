@@ -326,7 +326,7 @@ function applyCommonToInputs() {
 }
 
 // ---------- Gemini 설정 & AI 다듬기 ----------
-const DEFAULT_MODEL = "gemini-2.5-flash";
+const DEFAULT_MODEL = "gemini-flash-latest";
 
 async function openSettings() {
   const card = $("settingsCard");

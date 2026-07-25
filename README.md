@@ -44,7 +44,7 @@ NotebookLM 스튜디오 산출물 9종의 **맞춤설정 프롬프트**를 목�
 
 1. Get an API key from [Google AI Studio](https://aistudio.google.com/apikey) (free tier available)
 2. Panel → gear icon (**Settings**) → paste the key → Save
-   (leave Model empty to use `gemini-2.5-flash`)
+   (leave Model empty to use `gemini-flash-latest`, which always points to the newest Flash model)
 3. Click **AI refine** under the preview
 
 Your key is stored only on your device (`chrome.storage.local`). The prompt text is sent
