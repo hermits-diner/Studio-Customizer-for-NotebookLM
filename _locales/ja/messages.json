@@ -1,6 +1,6 @@
 {
   "extDesc": {
-    "message": "目的・対象・コンテキストを入力すると、NotebookLMスタジオの各アウトプット向けカスタマイズプロンプトを作成し、ワンクリックで挿入します。"
+    "message": "NotebookLMの音声概要・スライド・クイズを目的に合わせて — カスタマイズプロンプトを作成し、ワンクリックで挿入。"
   },
   "actionTitle": {
     "message": "Studio Customizer for NotebookLM を開く"

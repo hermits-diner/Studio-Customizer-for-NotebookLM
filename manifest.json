@@ -1,15 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Studio Customizer for NotebookLM",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "__MSG_extDesc__",
   "default_locale": "en",
   "minimum_chrome_version": "114",
   "permissions": ["sidePanel", "storage", "clipboardWrite", "scripting"],
   "host_permissions": [
     "https://generativelanguage.googleapis.com/*",
-    "https://notebooklm.google.com/*",
-    "https://raw.githubusercontent.com/hermits-diner/Studio-Customizer-for-NotebookLM/*"
+    "https://notebooklm.google.com/*"
   ],
   "side_panel": {
     "default_path": "sidepanel/panel.html"

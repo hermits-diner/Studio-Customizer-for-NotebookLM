@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Screenshot frame 1280×800</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    html, body { width: 1280px; height: 800px; overflow: hidden; }
+    body {
+      position: relative;
+      background: #f2efe9;
+      font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", "Apple SD Gothic Neo",
+        "Segoe UI", system-ui, sans-serif;
+      color: #2f3437;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 18% -10%, rgba(180, 150, 90, 0.16), transparent 55%),
+        radial-gradient(ellipse at 95% 110%, rgba(120, 140, 180, 0.10), transparent 55%);
+    }
+    .copy { position: absolute; left: 84px; top: 130px; width: 560px; }
+    .kicker {
+      font-family: Consolas, ui-monospace, monospace;
+      font-size: 13px; letter-spacing: 0.14em; color: #8a8578;
+      text-transform: uppercase; margin-bottom: 22px;
+    }
+    h1 { font-size: 52px; letter-spacing: -0.03em; line-height: 1.16; font-weight: 800; }
+    h1 em { font-family: Georgia, serif; font-style: italic; font-weight: 400; }
+    .tag { margin-top: 22px; font-size: 20px; color: #57534e; line-height: 1.6; }
+    ul { margin-top: 30px; padding: 0; list-style: none; }
+    li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 16.5px; font-weight: 600; margin-bottom: 12px; color: #44403c;
+    }
+    li::before {
+      content: ""; width: 7px; height: 7px; border-radius: 50%;
+      background: #2da05a; flex-shrink: 0;
+    }
+    .panel-wrap {
+      position: absolute; right: 84px; top: 56px;
+      width: 420px; height: 688px;
+      border-radius: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 40px 80px rgba(40, 35, 25, 0.18), 0 8px 24px rgba(40, 35, 25, 0.08);
+      overflow: hidden;
+      background: #f7f6f3;
+    }
+    .panel-wrap iframe { width: 420px; height: 688px; border: 0; }
+  </style>
+</head>
+<body>
+  <div class="copy">
+    <div class="kicker">Studio Customizer · for NotebookLM</div>
+    <h1>빈칸 앞에서<br />고민하지 마세요<em>.</em></h1>
+    <p class="tag">대상과 목적만 고르면 전문가 수준의<br />맞춤설정 프롬프트가 실시간으로 완성됩니다.</p>
+    <ul>
+      <li>9종 산출물 · 디자인 스타일 9종</li>
+      <li>맞춤설정란 자동 감지 → 원클릭 삽입</li>
+      <li>API 키 없이 AI 다듬기 (온디바이스)</li>
+      <li>수집 없음 · 서버 없음 · 100% 로컬</li>
+    </ul>
+  </div>
+  <div class="panel-wrap">
+    <iframe src="../../sidepanel/panel.html"></iframe>
+  </div>
+</body>
+</html>

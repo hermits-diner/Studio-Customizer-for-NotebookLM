@@ -20,9 +20,5 @@ jobs:
           node --check sidepanel/panel.js
       - name: Unit tests
         run: node tests/run.js
-      - name: Validate manifest & selectors JSON
-        run: |
-          node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8'))"
-          node -e "JSON.parse(require('fs').readFileSync('selectors.json','utf8'))"
-          node -e "JSON.parse(require('fs').readFileSync('_locales/en/messages.json','utf8'))"
-          node -e "JSON.parse(require('fs').readFileSync('_locales/ko/messages.json','utf8'))"
+      - name: Validate manifest, selectors & all locales (incl. 132-char store limit)
+        run: node tests/checks.js

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — Studio Customizer for NotebookLM</title>
+  <style>
+    :root {
+      --bg: #f7f6f3; --card: #ffffff; --text: #2f3437; --muted: #787774;
+      --border: #eaeaea; --ink: #111111;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #191817; --card: #201f1d; --text: #edebe8; --muted: #8f8b84;
+        --border: #2e2c29; --ink: #edebe8;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 40px 20px 80px; background: var(--bg); color: var(--text);
+      font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", "Apple SD Gothic Neo",
+        "Segoe UI", system-ui, sans-serif;
+      font-size: 15px; line-height: 1.7; letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+    main { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 26px; letter-spacing: -0.02em; margin: 0 0 4px; }
+    h2 { font-size: 19px; margin: 44px 0 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+    h3 { font-size: 15.5px; margin: 24px 0 6px; }
+    .date { color: var(--muted); font-size: 13px; margin: 0 0 32px; }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    a { color: inherit; }
+    strong { font-weight: 700; }
+    .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 0; }
+    .badge {
+      padding: 4px 12px; border: 1px solid var(--border); border-radius: 999px;
+      background: var(--card); font-size: 12.5px; font-weight: 600; color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Privacy Policy — Studio Customizer for NotebookLM</h1>
+    <p class="date">Last updated: 2026-07-25 · <a href="index.html">Home</a> · <a href="https://github.com/hermits-diner/Studio-Customizer-for-NotebookLM">GitHub</a></p>
+    <div class="badge-row">
+      <span class="badge">No data collected</span>
+      <span class="badge">No server</span>
+      <span class="badge">No analytics</span>
+      <span class="badge">Open code — audit on GitHub</span>
+    </div>
+
+    <h2>English</h2>
+    <p><strong>Studio Customizer for NotebookLM</strong> ("the extension") is designed to be local-first.</p>
+    <p><strong>Data we collect: none.</strong> The extension has no analytics, no tracking, and no server of its own.</p>
+
+    <h3>Where your data lives</h3>
+    <ul>
+      <li>Your inputs (audience, purpose, context, presets, history) are stored in your browser's extension storage (<code>chrome.storage</code>). Presets sync across your own Chrome profile via Chrome's built-in sync; everything else stays on your device.</li>
+      <li>Your Gemini API key, if you choose to add one, is stored only in local extension storage on your device. It is never transmitted anywhere except directly to Google's API.</li>
+    </ul>
+
+    <h3>On-device AI</h3>
+    <p>On devices where Chrome's built-in AI (Gemini Nano) is available, "AI refine" runs entirely on your device without an API key — the prompt text never leaves your computer in that case.</p>
+
+    <h3>Network requests the extension makes</h3>
+    <ul>
+      <li><strong>Google Gemini API</strong> (<code>generativelanguage.googleapis.com</code>) — only when you click "AI refine" <strong>and</strong> you have saved your own API key, the current prompt text is sent to Google using that key. This is opt-in; without a key, the extension makes no such request (on-device AI is used instead where supported). Google's handling of that data is governed by the <a href="https://developers.google.com/terms">Google API Terms</a> and <a href="https://ai.google.dev/gemini-api/terms">Gemini API terms</a>.</li>
+      <li><strong>Selector configuration</strong> (<code>raw.githubusercontent.com</code>) — a small JSON file describing NotebookLM's UI structure is fetched so the "Insert" feature keeps working when NotebookLM's interface changes. No user data is sent; this is a plain download.</li>
+      <li><strong>Nothing else.</strong> No analytics, no telemetry, no tracking pixels.</li>
+    </ul>
+
+    <h3>What the extension reads on notebooklm.google.com</h3>
+    <p>Only what is needed to make Insert reliable — whether a customization box is open, the dialog's title (to auto-select the matching output type), and the notebook's name from the tab title (shown as a chip you can click to add it to your context). None of this leaves your device. The extension does not read your notebook's sources, chats, or generated content.</p>
+
+    <h3>Permissions</h3>
+    <ul>
+      <li><code>notebooklm.google.com</code> access — inserting your prompt into the customization box and showing the connection status / notebook name described above.</li>
+      <li><code>storage</code> — saving your settings, presets, and history locally.</li>
+      <li><code>clipboardWrite</code> — the "Copy" button.</li>
+      <li><code>scripting</code> — injecting the insert helper into an already-open NotebookLM tab.</li>
+    </ul>
+    <p><strong>Contact:</strong> hermitsdiner@gmail.com</p>
+
+    <h2>한국어</h2>
+    <p><strong>Studio Customizer for NotebookLM</strong>(이하 "확장")은 로컬 우선으로 설계되었습니다.</p>
+    <p><strong>수집하는 데이터: 없음.</strong> 자체 서버·분석·추적 코드가 없습니다.</p>
+
+    <h3>데이터 저장 위치</h3>
+    <ul>
+      <li>입력 내용(대상·목적·맥락·프리셋·히스토리)은 브라우저 확장 저장소(<code>chrome.storage</code>)에 저장됩니다. 프리셋은 본인 Chrome 프로필의 기본 동기화를 통해서만 동기화되며, 그 외에는 기기에만 저장됩니다.</li>
+      <li>Gemini API 키를 등록한 경우, 키는 이 기기의 로컬 저장소에만 저장되며 Google API 외의 어디로도 전송되지 않습니다.</li>
+    </ul>
+
+    <h3>온디바이스 AI</h3>
+    <p>Chrome 내장 AI(Gemini Nano)를 지원하는 기기에서는 "AI 다듬기"가 API 키 없이 기기 안에서만 실행됩니다 — 이 경우 프롬프트 텍스트는 컴퓨터 밖으로 전송되지 않습니다.</p>
+
+    <h3>확장이 수행하는 네트워크 요청</h3>
+    <ul>
+      <li><strong>Google Gemini API</strong> — "AI 다듬기" 버튼을 누르고 <strong>본인의 API 키를 저장해 둔 경우에만</strong>, 현재 프롬프트 텍스트가 그 키로 Google에 전송됩니다. 키가 없으면 이 요청은 발생하지 않습니다(지원 기기에서는 온디바이스 AI 사용).</li>
+      <li><strong>셀렉터 설정 파일</strong> — NotebookLM UI 변경에 대응하기 위한 작은 JSON 파일을 GitHub에서 내려받습니다. 사용자 데이터는 전송되지 않습니다.</li>
+      <li><strong>그 외 없음.</strong> 분석·텔레메트리·추적 코드가 없습니다.</li>
+    </ul>
+
+    <h3>notebooklm.google.com에서 읽는 정보</h3>
+    <p>삽입 기능에 필요한 최소한 — 맞춤설정란이 열려 있는지, 다이얼로그 제목(산출물 유형 자동 선택용), 탭 제목에서 얻는 노트북 이름(칩으로 표시, 클릭 시 맥락에 추가)뿐입니다. 모두 기기 밖으로 전송되지 않으며, 노트북의 소스·채팅·생성 결과물은 읽지 않습니다.</p>
+
+    <h3>권한 사용 목적</h3>
+    <ul>
+      <li><code>notebooklm.google.com</code> — 삽입 버튼·연결 상태 표시 (소스·채팅은 읽지 않음)</li>
+      <li><code>storage</code> — 설정·프리셋·히스토리 저장</li>
+      <li><code>clipboardWrite</code> — 복사 버튼</li>
+      <li><code>scripting</code> — 이미 열려 있는 NotebookLM 탭에 삽입 도우미 주입</li>
+    </ul>
+    <p><strong>문의:</strong> hermitsdiner@gmail.com</p>
+  </main>
+</body>
+</html>

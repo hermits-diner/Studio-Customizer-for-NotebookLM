@@ -505,6 +505,74 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   outline: none; /* 입력류는 보더 색 변화로 표시 */
 }
 
+/* ---------- NotebookLM 상태 배지 · 노트북 칩 ---------- */
+/* display 지정이 hidden 속성을 이기지 않도록 */
+.status-line[hidden],
+.nb-chip[hidden] { display: none; }
+
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 8px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.status-line .dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  transition: background 0.3s;
+}
+
+.status-line.ok { color: var(--text); }
+.status-line.ok .dot { background: #2da05a; }
+.status-line.warn .dot { background: var(--warn-text); }
+.status-line.off .dot { background: var(--border-strong); }
+
+.mini-btn {
+  padding: 2px 9px;
+  font-size: 10.5px;
+  border-radius: 999px;
+}
+
+.nb-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+  margin: -6px 0 12px;
+  padding: 3px 10px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.nb-chip:hover {
+  color: var(--text);
+  border-color: var(--text);
+}
+
+.nb-chip svg {
+  flex-shrink: 0;
+  width: 11px;
+  height: 11px;
+}
+
+.nb-chip span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* ---------- 프리셋 ---------- */
 .preset-row {
   display: flex;

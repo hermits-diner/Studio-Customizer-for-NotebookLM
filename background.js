@@ -6,7 +6,9 @@ chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: true })
   .catch((e) => console.error(e));
 
-// NotebookLM DOM 셀렉터 원격 설정 — UI 변경 시 저장소의 selectors.json만 고치면 된다
+// NotebookLM DOM 셀렉터 원격 설정 — UI 변경 시 저장소의 selectors.json만 고치면 된다.
+// GitHub raw는 CORS(Access-Control-Allow-Origin: *)를 허용하므로 host 권한이 필요 없다
+// (설치 시 권한 경고를 줄이기 위해 manifest에서 제거).
 const SELECTORS_URL =
   "https://raw.githubusercontent.com/hermits-diner/Studio-Customizer-for-NotebookLM/main/selectors.json";
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24h

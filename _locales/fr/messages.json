@@ -1,6 +1,6 @@
 {
   "extDesc": {
-    "message": "Saisissez objectif, public et contexte pour générer des prompts de personnalisation pour chaque sortie de NotebookLM Studio, puis insérez-les en un clic."
+    "message": "De meilleurs résumés audio, diapositives et quiz dans NotebookLM : créez un prompt sur mesure, insérez-le en un clic."
   },
   "actionTitle": {
     "message": "Ouvrir Studio Customizer for NotebookLM"

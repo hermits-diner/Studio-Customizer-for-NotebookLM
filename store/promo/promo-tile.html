@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Promo tile 440×280</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    body {
+      position: relative;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 24px 34px;
+      background: #f7f6f3;
+      font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", "Apple SD Gothic Neo",
+        "Segoe UI", system-ui, sans-serif;
+      color: #2f3437;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% -30%, rgba(180, 150, 90, 0.14), transparent 65%);
+      pointer-events: none;
+    }
+    .kicker {
+      font-family: Consolas, ui-monospace, monospace;
+      font-size: 10px; letter-spacing: 0.12em; color: #787774;
+      text-transform: uppercase; margin-bottom: 10px; white-space: nowrap;
+    }
+    h1 { font-size: 27px; letter-spacing: -0.03em; line-height: 1.2; font-weight: 800; }
+    h1 em { font-family: Georgia, serif; font-style: italic; font-weight: 400; }
+    .tag { margin-top: 9px; font-size: 13px; color: #57534e; line-height: 1.45; }
+    .pill-row { display: flex; gap: 6px; margin-top: 15px; }
+    .pill {
+      padding: 4px 11px; border-radius: 999px; font-size: 10.5px; font-weight: 700;
+      background: #111; color: #fff; white-space: nowrap;
+    }
+    .pill.ghost { background: transparent; color: #57534e; border: 1px solid #d8d5ce; }
+  </style>
+</head>
+<body>
+  <div class="kicker">Chrome Extension · for NotebookLM</div>
+  <h1>Studio Customizer<br /><em>for NotebookLM</em></h1>
+  <p class="tag">맞춤설정 프롬프트를 만들어 클릭 한 번으로 삽입</p>
+  <div class="pill-row">
+    <span class="pill">원클릭 삽입</span>
+    <span class="pill ghost">9종 산출물</span>
+    <span class="pill ghost">100% 로컬</span>
+  </div>
+</body>
+</html>

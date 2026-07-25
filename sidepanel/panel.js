@@ -66,6 +66,18 @@ const I18N = {
     obStep2: "대상·목적·맥락을 입력하면 프롬프트가 실시간으로 만들어집니다",
     obStep3: "NotebookLM에서 맞춤설정란을 열고 [삽입]을 누르세요 (또는 복사해서 붙여넣기)",
     obDone: "시작하기",
+    stReady: "맞춤설정란 열림 — 바로 삽입할 수 있어요",
+    stReadyFor: "{name} 맞춤설정란 열림 — 바로 삽입할 수 있어요",
+    stNoBox: "NotebookLM 연결됨 — 맞춤설정란을 열면 삽입할 수 있어요",
+    stNoTab: "NotebookLM 탭 없음",
+    stUnsure: "입력란 감지됨 — 맞춤설정란이 맞는지 확인 후 삽입하세요",
+    stOpenBtn: "열기",
+    insertedUnsure: "삽입했지만 맞춤설정란이 아닐 수 있어요 — NotebookLM에서 확인해 주세요.",
+    nbHint: "클릭하면 노트북 제목을 추가 맥락에 넣어요",
+    odRefining: "온디바이스 AI로 다듬는 중…",
+    odDownload: "온디바이스 AI 모델 다운로드 중… {pct}%",
+    odNote: "API 키가 없어도, Chrome 내장 AI를 지원하는 기기에서는 프롬프트가 기기 안에서 다듬어져요. 키를 저장하면 클라우드 Gemini를 우선 사용합니다.",
+    odUnavailable: "이 기기의 Chrome에서는 내장 AI를 사용할 수 없어요. 설정에서 Gemini API 키를 저장하면 AI 다듬기를 쓸 수 있어요.",
   },
   en: {
     subtitle: "Pick an output, add your context, and get a tailored customization prompt.",
@@ -133,6 +145,18 @@ const I18N = {
     obStep2: "Add audience, purpose, and context — the prompt builds live",
     obStep3: "Open the customization box in NotebookLM and click Insert (or copy & paste)",
     obDone: "Got it",
+    stReady: "Customization box open — ready to insert",
+    stReadyFor: "{name} customization box open — ready to insert",
+    stNoBox: "NotebookLM connected — open a customization box to insert",
+    stNoTab: "No NotebookLM tab",
+    stUnsure: "Input box detected — make sure it's the customization box before inserting",
+    stOpenBtn: "Open",
+    insertedUnsure: "Inserted, but it may not be the customization box — please check in NotebookLM.",
+    nbHint: "Click to add the notebook title to Additional context",
+    odRefining: "Refining with on-device AI…",
+    odDownload: "Downloading on-device AI model… {pct}%",
+    odNote: "No API key needed on devices with Chrome's built-in AI — refining then happens entirely on your device. If you save a key, cloud Gemini is used instead.",
+    odUnavailable: "Chrome's built-in AI isn't available on this device. Save a Gemini API key in Settings to use AI refine.",
   },
   ja: {
     subtitle: "アウトプットを選び、コンテキストを入力するとカスタマイズプロンプトが作られます。",
@@ -200,6 +224,18 @@ const I18N = {
     obStep2: "対象・目的・コンテキストを入力するとプロンプトがリアルタイムで作られる",
     obStep3: "NotebookLMでカスタマイズ欄を開き[挿入]を押す(またはコピーして貼り付け)",
     obDone: "はじめる",
+    stReady: "カスタマイズ欄が開いています — すぐに挿入できます",
+    stReadyFor: "{name}のカスタマイズ欄が開いています — すぐに挿入できます",
+    stNoBox: "NotebookLMに接続済み — カスタマイズ欄を開くと挿入できます",
+    stNoTab: "NotebookLMのタブがありません",
+    stUnsure: "入力欄を検出 — カスタマイズ欄か確認してから挿入してください",
+    stOpenBtn: "開く",
+    insertedUnsure: "挿入しましたが、カスタマイズ欄ではない可能性があります — NotebookLMで確認してください。",
+    nbHint: "クリックするとノートブック名を補足コンテキストに追加します",
+    odRefining: "オンデバイスAIで仕上げ中…",
+    odDownload: "オンデバイスAIモデルをダウンロード中… {pct}%",
+    odNote: "APIキーがなくても、Chrome内蔵AI対応の端末ならプロンプトは端末内で仕上げられます。キーを保存するとクラウドのGeminiを優先します。",
+    odUnavailable: "この端末のChromeでは内蔵AIを利用できません。設定でGemini APIキーを保存するとAI仕上げが使えます。",
   },
   es: {
     subtitle: "Elige un tipo de contenido, añade tu contexto y obtén un prompt de personalización a medida.",
@@ -266,6 +302,18 @@ const I18N = {
     obStep2: "Añade audiencia, propósito y contexto: el prompt se crea en vivo",
     obStep3: "Abre el cuadro de personalización en NotebookLM y pulsa Insertar (o copia y pega)",
     obDone: "Entendido",
+    stReady: "Cuadro de personalización abierto — listo para insertar",
+    stReadyFor: "Cuadro de personalización de {name} abierto — listo para insertar",
+    stNoBox: "NotebookLM conectado — abre un cuadro de personalización para insertar",
+    stNoTab: "Sin pestaña de NotebookLM",
+    stUnsure: "Campo detectado — comprueba que sea el cuadro de personalización antes de insertar",
+    stOpenBtn: "Abrir",
+    insertedUnsure: "Insertado, pero puede no ser el cuadro de personalización — compruébalo en NotebookLM.",
+    nbHint: "Haz clic para añadir el título del cuaderno al contexto adicional",
+    odRefining: "Puliendo con IA en el dispositivo…",
+    odDownload: "Descargando el modelo de IA local… {pct}%",
+    odNote: "Sin clave API, en equipos compatibles con la IA integrada de Chrome el prompt se pule sin salir de tu dispositivo. Si guardas una clave, se usa Gemini en la nube.",
+    odUnavailable: "La IA integrada de Chrome no está disponible en este equipo. Guarda una clave API de Gemini en Ajustes para usar Pulir con IA.",
   },
   zh: {
     subtitle: "选择输出类型,输入你的背景信息,即可生成定制化提示词。",
@@ -332,6 +380,18 @@ const I18N = {
     obStep2: "输入受众、目的和背景,提示词实时生成",
     obStep3: "在 NotebookLM 打开定制输入框,点击[插入](或复制粘贴)",
     obDone: "知道了",
+    stReady: "定制输入框已打开 — 可直接插入",
+    stReadyFor: "{name}的定制输入框已打开 — 可直接插入",
+    stNoBox: "已连接 NotebookLM — 打开定制输入框即可插入",
+    stNoTab: "未找到 NotebookLM 标签页",
+    stUnsure: "检测到输入框 — 插入前请确认是定制输入框",
+    stOpenBtn: "打开",
+    insertedUnsure: "已插入,但可能不是定制输入框 — 请在 NotebookLM 中确认。",
+    nbHint: "点击可将笔记本标题加入补充背景",
+    odRefining: "正在使用设备端 AI 润色…",
+    odDownload: "正在下载设备端 AI 模型… {pct}%",
+    odNote: "无需 API 密钥:支持 Chrome 内置 AI 的设备可在本机完成润色。保存密钥后将优先使用云端 Gemini。",
+    odUnavailable: "此设备的 Chrome 不支持内置 AI。请在设置中保存 Gemini API 密钥以使用 AI 润色。",
   },
   fr: {
     subtitle: "Choisissez un contenu, ajoutez votre contexte et obtenez un prompt de personnalisation sur mesure.",
@@ -398,6 +458,18 @@ const I18N = {
     obStep2: "Ajoutez public, objectif et contexte — le prompt se construit en direct",
     obStep3: "Ouvrez le champ de personnalisation dans NotebookLM et cliquez sur Insérer (ou copiez-collez)",
     obDone: "Compris",
+    stReady: "Champ de personnalisation ouvert — prêt à insérer",
+    stReadyFor: "Champ de personnalisation {name} ouvert — prêt à insérer",
+    stNoBox: "NotebookLM connecté — ouvrez un champ de personnalisation pour insérer",
+    stNoTab: "Aucun onglet NotebookLM",
+    stUnsure: "Champ détecté — vérifiez qu'il s'agit du champ de personnalisation avant d'insérer",
+    stOpenBtn: "Ouvrir",
+    insertedUnsure: "Inséré, mais ce n'est peut-être pas le champ de personnalisation — vérifiez dans NotebookLM.",
+    nbHint: "Cliquez pour ajouter le titre du notebook au contexte supplémentaire",
+    odRefining: "Affinage avec l'IA locale…",
+    odDownload: "Téléchargement du modèle d'IA local… {pct}%",
+    odNote: "Sans clé API, sur les appareils compatibles avec l'IA intégrée de Chrome, l'affinage se fait entièrement sur votre appareil. Avec une clé enregistrée, Gemini (cloud) est utilisé en priorité.",
+    odUnavailable: "L'IA intégrée de Chrome n'est pas disponible sur cet appareil. Enregistrez une clé API Gemini dans les réglages pour utiliser l'affinage par IA.",
   },
   de: {
     subtitle: "Ausgabetyp wählen, Kontext eingeben — fertig ist der maßgeschneiderte Anpassungs-Prompt.",
@@ -464,6 +536,18 @@ const I18N = {
     obStep2: "Zielgruppe, Zweck und Kontext eingeben — der Prompt entsteht live",
     obStep3: "In NotebookLM das Anpassungsfeld öffnen und auf Einfügen klicken (oder kopieren & einfügen)",
     obDone: "Alles klar",
+    stReady: "Anpassungsfeld geöffnet — bereit zum Einfügen",
+    stReadyFor: "Anpassungsfeld für {name} geöffnet — bereit zum Einfügen",
+    stNoBox: "Mit NotebookLM verbunden — öffne ein Anpassungsfeld zum Einfügen",
+    stNoTab: "Kein NotebookLM-Tab",
+    stUnsure: "Eingabefeld erkannt — prüfe vor dem Einfügen, ob es das Anpassungsfeld ist",
+    stOpenBtn: "Öffnen",
+    insertedUnsure: "Eingefügt — aber möglicherweise nicht ins Anpassungsfeld. Bitte in NotebookLM prüfen.",
+    nbHint: "Klicken, um den Notebook-Titel zum zusätzlichen Kontext hinzuzufügen",
+    odRefining: "Verfeinern mit KI auf dem Gerät…",
+    odDownload: "On-Device-KI-Modell wird geladen… {pct}%",
+    odNote: "Ohne API-Schlüssel läuft das Verfeinern auf Geräten mit Chromes integrierter KI komplett lokal. Mit gespeichertem Schlüssel wird bevorzugt Cloud-Gemini genutzt.",
+    odUnavailable: "Chromes integrierte KI ist auf diesem Gerät nicht verfügbar. Speichere einen Gemini-API-Schlüssel in den Einstellungen, um KI-Verfeinern zu nutzen.",
   },
 };
 
@@ -644,6 +728,7 @@ function renderTypeFields() {
 function setTypeValue(key, value) {
   if (!state.byType[state.typeId]) state.byType[state.typeId] = {};
   state.byType[state.typeId][key] = value;
+  userTouched = true;
   update();
 }
 
@@ -690,6 +775,7 @@ function bindCommonFields() {
     const el = $(key);
     el.addEventListener("input", () => {
       state.common[key] = el.value;
+      userTouched = true;
       update();
     });
   }
@@ -747,6 +833,91 @@ function showRefineNote(msg) {
   setTimeout(() => (el.hidden = true), 6000);
 }
 
+function refineMetaPrompt(draft) {
+  const outLang = OUTPUT_LANGS[langCode({ language: state.common.language })].name;
+  return (
+    "You are an expert prompt engineer for Google NotebookLM Studio outputs. " +
+    "Improve the customization prompt below: make it clearer, more specific, and better structured " +
+    "while keeping the author's intent and the bullet-list format. Keep it under 450 characters if possible. " +
+    `Write the improved prompt in ${outLang}. Return ONLY the improved prompt text — no explanations, no code fences.\n\n---\n` +
+    draft
+  );
+}
+
+// 모델이 지시를 무시하고 코드 펜스를 붙이는 경우 방어
+function stripFences(text) {
+  return text.replace(/^```[a-z]*\n?/i, "").replace(/\n?```$/i, "").trim();
+}
+
+async function refineWithCloud(stored, meta) {
+  const model = stored.geminiModel || DEFAULT_MODEL;
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": stored.geminiKey,
+      },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: meta }] }],
+        generationConfig: { temperature: 0.4 },
+      }),
+    }
+  );
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error((data.error && data.error.message) || `HTTP ${res.status}`);
+  }
+  const text = (((data.candidates || [])[0] || {}).content || {}).parts
+    ?.map((p) => p.text || "")
+    .join("")
+    .trim();
+  if (!text) throw new Error("empty response");
+  return text;
+}
+
+// Chrome 내장 AI(Prompt API, Gemini Nano) — 키 없이 기기 내에서 다듬기.
+// 미지원 환경이면 null을 반환하고 호출부에서 안내한다.
+async function refineOnDevice(meta, onProgress) {
+  const LM =
+    globalThis.LanguageModel ||
+    (globalThis.ai && globalThis.ai.languageModel) ||
+    null;
+  if (!LM) return null;
+  let session = null;
+  try {
+    if (typeof LM.availability === "function") {
+      const avail = await LM.availability();
+      if (avail === "unavailable" || avail === "no") return null;
+    } else if (typeof LM.capabilities === "function") {
+      const cap = await LM.capabilities();
+      if (cap.available === "no") return null;
+    }
+    session = await LM.create({
+      monitor(m) {
+        try {
+          m.addEventListener("downloadprogress", (e) => {
+            if (onProgress) onProgress(Math.round((e.loaded || 0) * 100));
+          });
+        } catch (err) {
+          // 진행률 없이 계속
+        }
+      },
+    });
+    const text = ((await session.prompt(meta)) || "").trim();
+    return text || null;
+  } catch (e) {
+    return null;
+  } finally {
+    try {
+      if (session && session.destroy) session.destroy();
+    } catch (e) {
+      // ignore
+    }
+  }
+}
+
 function bindRefine() {
   $("refineBtn").addEventListener("click", async () => {
     const draft = $("preview").value.trim();
@@ -754,46 +925,26 @@ function bindRefine() {
     const stored = hasChrome
       ? await chrome.storage.local.get(["geminiKey", "geminiModel"])
       : {};
-    if (!stored.geminiKey) {
-      openSettings();
-      showRefineNote(S().refineNoKey);
-      return;
-    }
     const btn = $("refineBtn");
     btn.disabled = true;
-    btn.textContent = S().refining;
     try {
-      const model = stored.geminiModel || DEFAULT_MODEL;
-      const outLang = OUTPUT_LANGS[langCode({ language: state.common.language })].name;
-      const meta =
-        "You are an expert prompt engineer for Google NotebookLM Studio outputs. " +
-        "Improve the customization prompt below: make it clearer, more specific, and better structured " +
-        "while keeping the author's intent and the bullet-list format. Keep it under 450 characters if possible. " +
-        `Write the improved prompt in ${outLang}. Return ONLY the improved prompt text — no explanations, no code fences.\n\n---\n` +
-        draft;
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": stored.geminiKey,
-          },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: meta }] }],
-            generationConfig: { temperature: 0.4 },
-          }),
+      const meta = refineMetaPrompt(draft);
+      let text;
+      if (stored.geminiKey) {
+        btn.textContent = S().refining;
+        text = await refineWithCloud(stored, meta);
+      } else {
+        btn.textContent = S().odRefining;
+        text = await refineOnDevice(meta, (pct) => {
+          btn.textContent = S().odDownload.replace("{pct}", String(pct));
+        });
+        if (!text) {
+          openSettings();
+          showRefineNote(S().odUnavailable);
+          return;
         }
-      );
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error((data.error && data.error.message) || `HTTP ${res.status}`);
       }
-      const text = (((data.candidates || [])[0] || {}).content || {}).parts
-        ?.map((p) => p.text || "")
-        .join("")
-        .trim();
-      if (!text) throw new Error("empty response");
+      text = stripFences(text);
       $("preview").value = text;
       updateCharCount(text.length);
     } catch (e) {
@@ -840,6 +991,7 @@ function bindLangToggle() {
     renderPresets($("presetSelect").value);
     renderHistory();
     update();
+    if (hasChrome && chrome.tabs) pollStatus(); // 상태 배지 문구도 즉시 새 언어로
   });
 }
 
@@ -861,41 +1013,246 @@ function bindCopy() {
 }
 
 // ---------- NotebookLM 자동 삽입 ----------
+// 다중 창에서 안 보이는 탭에 삽입되지 않도록 마지막 포커스 창의 활성 탭 우선
+async function queryNlmTab() {
+  if (!hasChrome || !chrome.tabs) return null;
+  try {
+    const focused = await chrome.tabs.query({
+      url: "https://notebooklm.google.com/*",
+      active: true,
+      lastFocusedWindow: true,
+    });
+    if (focused.length) return focused[0];
+  } catch (e) {
+    // 계속 진행 — 전체 탭에서 탐색
+  }
+  const tabs = await chrome.tabs.query({ url: "https://notebooklm.google.com/*" });
+  if (!tabs.length) return null;
+  return tabs.find((t) => t.active) || tabs[0];
+}
+
+// 콘텐츠 스크립트가 없는 탭(확장 설치 전 열림)에는 1회 주입 후 재시도
+const injectedTabs = new Set();
+async function messageTab(tab, payload) {
+  try {
+    return await chrome.tabs.sendMessage(tab.id, payload);
+  } catch (e) {
+    if (injectedTabs.has(tab.id)) return null;
+    injectedTabs.add(tab.id);
+    try {
+      await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["content.js"] });
+      return await chrome.tabs.sendMessage(tab.id, payload);
+    } catch (err) {
+      return null;
+    }
+  }
+}
+
 function bindInsert() {
   $("insertBtn").addEventListener("click", async () => {
     const text = $("preview").value.trim();
     if (!text) return;
-    if (!hasChrome || !chrome.tabs) {
+    const tab = await queryNlmTab();
+    if (!tab) {
       showRefineNote(S().insertNoTab);
       return;
     }
-    const tabs = await chrome.tabs.query({ url: "https://notebooklm.google.com/*" });
-    if (!tabs.length) {
-      showRefineNote(S().insertNoTab);
-      return;
-    }
-    const tab = tabs.find((t) => t.active) || tabs[0];
-    let res;
-    try {
-      res = await chrome.tabs.sendMessage(tab.id, { type: "insertPrompt", text });
-    } catch {
-      // 콘텐츠 스크립트가 아직 없는 탭(확장 설치 전 열림) → 주입 후 재시도
-      try {
-        await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["content.js"] });
-        res = await chrome.tabs.sendMessage(tab.id, { type: "insertPrompt", text });
-      } catch {
-        showRefineNote(S().insertNoBox);
-        return;
-      }
-    }
+    const res = await messageTab(tab, { type: "insertPrompt", text });
     if (res && res.ok) {
       const btn = $("insertBtn");
       btn.textContent = S().inserted;
       setTimeout(() => (btn.textContent = S().insert), 1500);
+      // 광범위 폴백으로 찾은 입력란이면 맞춤설정란이 아닐 수 있음을 알린다
+      if (!res.confident) showRefineNote(S().insertedUnsure);
       pushHistory(text);
     } else {
       showRefineNote(S().insertNoBox);
     }
+  });
+}
+
+// ---------- NotebookLM 상태 배지 · 산출물 자동 감지 · 노트북 인식 ----------
+// 맞춤설정 다이얼로그 제목에서 산출물 유형을 추정하는 키워드 (NotebookLM UI 언어별)
+const TYPE_ALIASES = {
+  audio: ["오디오", "audio", "音声", "音频", "オーディオ"],
+  slides: ["슬라이드", "slide", "diapositiv", "folien", "スライド", "幻灯"],
+  video: ["동영상", "video", "vídeo", "vidéo", "動画", "视频"],
+  mindmap: ["마인드맵", "mind map", "mindmap", "マインド", "思维导图", "carte mentale", "mapa mental"],
+  report: ["보고서", "report", "informe", "rapport", "bericht", "レポート", "报告"],
+  flashcards: ["플래시카드", "flashcard", "karteikarten", "tarjetas", "cartes", "フラッシュ", "抽认卡"],
+  quiz: ["퀴즈", "quiz", "cuestionario", "クイズ", "测验"],
+  infographic: ["인포그래픽", "infographic", "infograf", "インフォ", "信息图"],
+  table: ["데이터 표", "table", "tabla", "tableau", "tabelle", "データ表", "表格"],
+};
+
+function matchTypeFromHeading(heading) {
+  const h = (heading || "").toLowerCase();
+  if (!h) return null;
+  for (const type of OUTPUT_TYPES) {
+    const aliases = TYPE_ALIASES[type.id] || [];
+    if (aliases.some((a) => h.includes(a))) return type;
+  }
+  return null;
+}
+
+let userTouched = false; // 세션 중 사용자가 입력을 만졌는지 — 첫 상태 복원 시 덮어쓰기 방지
+let lastHeading = "";
+let currentNbId = null;
+let nbTitle = "";
+
+const nbIdFromUrl = (u) => {
+  const m = /notebook\/([\w-]+)/.exec(u || "");
+  return m ? m[1] : null;
+};
+
+function renderStatus(kind, typeName) {
+  const line = $("nlmStatus");
+  if (!hasChrome || !chrome.tabs) {
+    line.hidden = true;
+    return;
+  }
+  line.hidden = false;
+  line.classList.remove("ok", "warn", "off");
+  $("nlmOpenBtn").hidden = kind !== "no-tab";
+  const textEl = $("nlmStatusText");
+  if (kind === "ready") {
+    line.classList.add("ok");
+    textEl.textContent = typeName
+      ? S().stReadyFor.replace("{name}", typeName)
+      : S().stReady;
+  } else if (kind === "unsure") {
+    line.classList.add("warn");
+    textEl.textContent = S().stUnsure;
+  } else if (kind === "no-box") {
+    line.classList.add("warn");
+    textEl.textContent = S().stNoBox;
+  } else {
+    line.classList.add("off");
+    textEl.textContent = S().stNoTab;
+  }
+}
+
+function renderNbChip() {
+  const chip = $("nbChip");
+  if (!nbTitle) {
+    chip.hidden = true;
+    return;
+  }
+  chip.hidden = false;
+  $("nbChipName").textContent = nbTitle;
+  chip.title = S().nbHint;
+}
+
+// 노트북별 입력 상태 저장/복원 — 노트북을 오가도 각자의 설정이 유지된다
+let nbSaveTimer;
+function saveNotebookState() {
+  if (!hasChrome || !currentNbId) return;
+  clearTimeout(nbSaveTimer);
+  nbSaveTimer = setTimeout(async () => {
+    const id = currentNbId;
+    if (!id) return;
+    const { nbStates = {} } = await chrome.storage.local.get("nbStates");
+    nbStates[id] = {
+      typeId: state.typeId,
+      common: { ...state.common },
+      byType: state.byType,
+      at: Date.now(),
+    };
+    // 최근 15개만 유지
+    const stale = Object.keys(nbStates)
+      .sort((a, b) => nbStates[b].at - nbStates[a].at)
+      .slice(15);
+    for (const key of stale) delete nbStates[key];
+    chrome.storage.local.set({ nbStates });
+  }, 400);
+}
+
+async function restoreNotebookState(nbId) {
+  const { nbStates = {} } = await chrome.storage.local.get("nbStates");
+  const s = nbStates[nbId];
+  if (!s) return;
+  state.typeId = OUTPUT_TYPES.some((x) => x.id === s.typeId) ? s.typeId : state.typeId;
+  state.common = { ...state.common, ...s.common };
+  state.byType = migrateDesignNames(s.byType || {});
+  applyCommonToInputs();
+  $("language").value = langCode({ language: state.common.language });
+  renderTypeGrid();
+  renderTypeFields();
+  update();
+}
+
+async function pollStatus() {
+  if (!hasChrome || !chrome.tabs) return;
+  const tab = await queryNlmTab();
+  if (!tab) {
+    nbTitle = "";
+    renderStatus("no-tab");
+    renderNbChip();
+    return;
+  }
+  const res = await messageTab(tab, { type: "getStatus" });
+  if (!res || !res.ok) {
+    nbTitle = "";
+    renderStatus("no-box");
+    renderNbChip();
+    return;
+  }
+  nbTitle = res.notebook || "";
+  renderNbChip();
+
+  // 노트북 전환 감지 → 그 노트북의 마지막 입력 복원
+  const nbId = nbIdFromUrl(res.url);
+  if (nbId && nbId !== currentNbId) {
+    const isFirst = currentNbId === null;
+    currentNbId = nbId;
+    // 첫 감지 시에는 사용자가 이미 입력한 값을 덮어쓰지 않는다
+    if (!isFirst || !userTouched) await restoreNotebookState(nbId);
+  }
+
+  if (res.hasBox) {
+    // 새로 열린 맞춤설정란의 제목으로 산출물 유형 자동 선택
+    if (res.heading && res.heading !== lastHeading) {
+      const match = matchTypeFromHeading(res.heading);
+      if (match && match.id !== state.typeId) {
+        state.typeId = match.id;
+        renderTypeGrid();
+        renderTypeFields();
+        update();
+      }
+    }
+    lastHeading = res.heading || "";
+    const match = matchTypeFromHeading(res.heading);
+    renderStatus("ready", match ? pickUI(match.name) : "");
+  } else if (res.anyBox) {
+    lastHeading = "";
+    renderStatus("unsure");
+  } else {
+    lastHeading = "";
+    renderStatus("no-box");
+  }
+}
+
+function bindStatus() {
+  if (!hasChrome || !chrome.tabs) {
+    $("nlmStatus").hidden = true;
+    return;
+  }
+  $("nlmOpenBtn").addEventListener("click", () => {
+    chrome.tabs.create({ url: "https://notebooklm.google.com/" });
+  });
+  $("nbChip").addEventListener("click", () => {
+    if (!nbTitle) return;
+    const cur = state.common.context || "";
+    if (cur.includes(nbTitle)) return;
+    state.common.context = cur ? `${cur}\n${nbTitle}` : nbTitle;
+    $("context").value = state.common.context;
+    userTouched = true;
+    update();
+  });
+  pollStatus();
+  setInterval(pollStatus, 2500);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) pollStatus();
   });
 }
 
@@ -999,6 +1356,7 @@ function bindPresetIO() {
 function saveState() {
   if (!hasChrome) return;
   chrome.storage.local.set({ lastState: state });
+  saveNotebookState();
 }
 
 function detectUiLang() {
@@ -1119,6 +1477,7 @@ function bindPresets() {
     state.common = { ...state.common, ...p.common };
     state.byType[state.typeId] = { ...p.values };
     migrateDesignNames(state.byType);
+    userTouched = true;
     applyI18n();
     applyCommonToInputs();
     renderTypeGrid();
@@ -1152,6 +1511,7 @@ function bindPresets() {
   bindPresets();
   bindPresetIO();
   bindHistory();
+  bindStatus();
   renderPresets();
   renderHistory();
   initOnboarding();

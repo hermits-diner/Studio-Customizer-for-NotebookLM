@@ -1,6 +1,6 @@
 {
   "extDesc": {
-    "message": "목적·대상·맥락을 입력하면 NotebookLM 스튜디오 산출물별 맞춤설정 프롬프트를 만들고, 클릭 한 번으로 삽입해 줍니다."
+    "message": "NotebookLM 오디오 오버뷰·슬라이드·퀴즈를 내 목적에 맞게 — 맞춤설정 프롬프트를 만들어 클릭 한 번으로 삽입하세요."
   },
   "actionTitle": {
     "message": "Studio Customizer for NotebookLM 열기"

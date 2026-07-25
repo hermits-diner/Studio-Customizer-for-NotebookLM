@@ -17,6 +17,10 @@
       </div>
     </div>
     <p class="sub" data-i18n="subtitle"></p>
+    <button id="nbChip" class="nb-chip" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span id="nbChipName"></span>
+    </button>
   </header>
 
   <section class="card onboarding" id="onboardingCard" hidden>
@@ -62,6 +66,11 @@
 
   <section class="card">
     <h2><span class="num">03</span><span class="lbl" data-i18n="step3"></span></h2>
+    <p id="nlmStatus" class="status-line off" hidden>
+      <span class="dot"></span>
+      <span id="nlmStatusText"></span>
+      <button id="nlmOpenBtn" class="mini-btn" hidden data-i18n="stOpenBtn"></button>
+    </p>
     <textarea id="preview" rows="12" spellcheck="false"></textarea>
     <div class="preview-footer">
       <span id="charCount" class="char-count">0</span>
@@ -119,6 +128,7 @@
     <div class="preset-row">
       <button id="settingsSaveBtn" class="primary" data-i18n="save"></button>
     </div>
+    <p class="note" data-i18n="odNote"></p>
     <p class="note" data-i18n="apiPrivacy"></p>
   </section>
 

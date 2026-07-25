@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Studio Customizer for NotebookLM — 맞춤설정 프롬프트를 클릭 한 번으로</title>
+  <meta name="description" content="Better Audio Overviews, slides & quizzes from NotebookLM — build a tailored customization prompt, insert it in one click." />
+  <style>
+    :root {
+      --bg: #f7f6f3; --card: #ffffff; --text: #2f3437; --muted: #787774;
+      --border: #eaeaea; --border-strong: #d8d5ce; --ink: #111111; --ink-text: #ffffff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #191817; --card: #201f1d; --text: #edebe8; --muted: #8f8b84;
+        --border: #2e2c29; --border-strong: #45423c; --ink: #edebe8; --ink-text: #191817;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0 20px 80px; background: var(--bg); color: var(--text);
+      font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", "Apple SD Gothic Neo",
+        "Segoe UI", system-ui, sans-serif;
+      font-size: 15px; line-height: 1.7; letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+    main { max-width: 760px; margin: 0 auto; }
+    .hero { padding: 88px 0 40px; text-align: center; }
+    .hero h1 { font-size: 38px; letter-spacing: -0.03em; line-height: 1.25; margin: 0 0 6px; }
+    .hero h1 em { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-weight: 400; }
+    .hero .tag { color: var(--muted); font-size: 16.5px; margin: 0 auto 28px; max-width: 560px; }
+    .cta-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 11px 22px; border-radius: 8px; text-decoration: none;
+      font-weight: 700; font-size: 14.5px; border: 1px solid var(--border-strong); color: var(--text);
+    }
+    .btn.primary { background: var(--ink); border-color: var(--ink); color: var(--ink-text); }
+    .note { color: var(--muted); font-size: 12.5px; margin-top: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 48px 0 0; }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px 18px;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 15.5px; letter-spacing: -0.02em; }
+    .card p { margin: 0; color: var(--muted); font-size: 13.5px; }
+    .steps { margin: 56px 0 0; }
+    .steps h2 { font-size: 21px; letter-spacing: -0.02em; }
+    .steps ol { padding-left: 22px; }
+    .steps li { margin-bottom: 8px; }
+    footer {
+      margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 13px; display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    footer a { color: inherit; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>Studio Customizer <em>for NotebookLM</em></h1>
+      <p class="tag">
+        오디오 오버뷰·슬라이드·퀴즈 등 NotebookLM 산출물 9종의 맞춤설정 프롬프트를
+        목적·대상만 고르면 만들어 주고, 클릭 한 번으로 삽입합니다.<br />
+        Better Audio Overviews, slides &amp; quizzes — build a tailored customization
+        prompt and insert it in one click.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="https://github.com/hermits-diner/Studio-Customizer-for-NotebookLM">GitHub에서 받기 · Get it on GitHub</a>
+        <a class="btn" href="privacy.html">개인정보처리방침 · Privacy</a>
+      </div>
+      <p class="note">Chrome Web Store 출시 준비 중 — 지금은 개발자 모드로 설치할 수 있어요.</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h3>9종 산출물 지원</h3>
+        <p>오디오 오버뷰, 슬라이드, 동영상 개요, 마인드맵, 보고서, 플래시카드, 퀴즈, 인포그래픽, 데이터 표</p>
+      </div>
+      <div class="card">
+        <h3>원클릭 삽입 + 자동 감지</h3>
+        <p>열려 있는 맞춤설정란을 감지해 산출물 유형을 자동 선택하고, 연결 상태를 항상 표시합니다</p>
+      </div>
+      <div class="card">
+        <h3>API 키 없이 AI 다듬기</h3>
+        <p>Chrome 내장 AI 지원 기기에서는 프롬프트가 기기 안에서 다듬어집니다 — 완전 로컬</p>
+      </div>
+      <div class="card">
+        <h3>노트북을 기억</h3>
+        <p>현재 노트북을 인식하고, 노트북마다 마지막 입력을 따로 기억합니다</p>
+      </div>
+      <div class="card">
+        <h3>7개 언어</h3>
+        <p>한국어 · English · 日本語 · Español · 中文 · Français · Deutsch — UI와 결과물 언어 모두</p>
+      </div>
+      <div class="card">
+        <h3>수집 없음 · 서버 없음</h3>
+        <p>분석·추적 코드 없이 전부 로컬에서 동작합니다. 코드는 GitHub에서 공개 검증 가능</p>
+      </div>
+    </section>
+
+    <section class="steps">
+      <h2>3단계로 시작하기</h2>
+      <ol>
+        <li><a href="https://notebooklm.google.com">notebooklm.google.com</a>에서 노트북을 열고 확장 아이콘 클릭</li>
+        <li>산출물 유형을 고르고 대상·목적 입력 — 프롬프트가 실시간으로 완성</li>
+        <li>NotebookLM에서 맞춤설정란을 열면 패널이 감지 — <strong>[삽입]</strong> 클릭</li>
+      </ol>
+    </section>
+
+    <footer>
+      <span>© 2026 hermits-diner</span>
+      <a href="https://github.com/hermits-diner/Studio-Customizer-for-NotebookLM">GitHub</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:hermitsdiner@gmail.com">hermitsdiner@gmail.com</a>
+    </footer>
+  </main>
+</body>
+</html>
