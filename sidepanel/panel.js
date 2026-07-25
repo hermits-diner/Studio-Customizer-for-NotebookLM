@@ -9,9 +9,9 @@ const $ = (id) => document.getElementById(id);
 const I18N = {
   ko: {
     subtitle: "산출물을 고르고 맥락을 입력하면 맞춤설정 프롬프트가 만들어집니다.",
-    step1: "1. 산출물 선택",
-    step2: "2. 맥락 입력",
-    step3: "3. 생성된 프롬프트",
+    step1: "산출물 선택",
+    step2: "맥락 입력",
+    step3: "생성된 프롬프트",
     presets: "프리셋",
     audience: "대상",
     audiencePh: "예: 입문자, 마케팅 팀 동료",
@@ -70,9 +70,9 @@ const I18N = {
   },
   en: {
     subtitle: "Pick an output, add your context, and get a tailored customization prompt.",
-    step1: "1. Choose an output",
-    step2: "2. Add context",
-    step3: "3. Generated prompt",
+    step1: "Choose an output",
+    step2: "Add context",
+    step3: "Generated prompt",
     presets: "Presets",
     audience: "Audience",
     audiencePh: "e.g. 10th-grade computer science students",
