@@ -170,6 +170,8 @@ function applyI18n() {
     el.placeholder = S()[el.dataset.i18nPh];
   });
   $("langToggle").textContent = S().toggleLabel;
+  $("settingsToggle").title = S().settings;
+  $("settingsToggle").setAttribute("aria-label", S().settings);
   fillDatalist("audienceList", S().audienceOptions);
   fillDatalist("purposeList", S().purposeOptions);
   // 결과물 언어 select — 값은 canonical('한국어'/'영어'), 표시만 번역
@@ -426,13 +428,31 @@ function bindRefine() {
 }
 
 // ---------- 언어 토글 ----------
+// 자동완성 목록에서 고른 값(한/영 1:1 대응)은 토글 시 반대 언어로 교체.
+// 직접 입력한 자유 텍스트는 사용자 콘텐츠이므로 그대로 둔다.
+function swapSuggestedValues(fromLang, toLang) {
+  const pairs = [
+    ["audience", "audienceOptions"],
+    ["purpose", "purposeOptions"],
+  ];
+  for (const [key, optKey] of pairs) {
+    const val = (state.common[key] || "").trim();
+    if (!val) continue;
+    const idx = I18N[fromLang][optKey].indexOf(val);
+    if (idx >= 0) state.common[key] = I18N[toLang][optKey][idx];
+  }
+}
+
 function bindLangToggle() {
   $("langToggle").addEventListener("click", () => {
+    const prev = uiLang;
     uiLang = uiLang === "ko" ? "en" : "ko";
     if (hasChrome) chrome.storage.local.set({ uiLang });
     // UI 언어 전환 시 결과물 언어도 함께 전환 — 셀렉트에서 개별 변경은 그대로 가능
     state.common.language = uiLang === "en" ? "영어" : "한국어";
+    swapSuggestedValues(prev, uiLang);
     applyI18n();
+    applyCommonToInputs();
     renderTypeGrid();
     renderTypeFields();
     renderPresets($("presetSelect").value);
