@@ -15,9 +15,10 @@ NotebookLM 스튜디오 산출물 9종의 **맞춤설정 프롬프트**를 목�
   fills it in (falls back to Copy & paste anytime)
 - **Local-first** — the template engine runs entirely on your device; no account, no server
 - **AI refine (optional)** — add your own Gemini API key to polish the generated prompt
-- **Multilingual output** — Korean / English UI toggle; prompts can target 7 output
-  languages (한국어, English, 日本語, 中文, Español, Français, Deutsch) — non-Korean
-  languages use an English prompt scaffold with a target-language directive
+- **Multilingual** — UI in Korean, English, and Japanese (cycle with the header toggle);
+  prompts can target 7 output languages (한국어, English, 日本語, 中文, Español,
+  Français, Deutsch) — non-Korean languages use an English prompt scaffold with a
+  target-language directive
 - **Design defaults** — visual outputs get a refined Apple/Figma-style minimal directive
   by default (switchable: bright & friendly, dark tech, or none)
 - **Presets, history, export/import** — save frequent setups, reuse recent prompts,
@@ -100,5 +101,5 @@ node tests/run.js   # unit tests (also run in CI on every push)
 
 - Auto-detect which output's customize box is open → auto-select the matching type
 - Prompt explanation mode (why each line is in the prompt — for prompt-engineering training)
-- More UI languages (ja, es) — output languages already supported
+- More UI languages (es, zh…) — ja shipped in 0.7.0, output languages already supported
 - Optional hosted AI refine (no API key needed) with free/pro tiers

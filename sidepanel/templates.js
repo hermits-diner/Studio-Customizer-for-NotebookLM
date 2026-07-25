@@ -7,10 +7,13 @@ const t = (v) => (v == null ? "" : String(v).trim());
 const L = (label, v) => (t(v) ? `- ${label}: ${t(v)}` : "");
 const joinLines = (parts) => parts.filter((p) => t(p)).join("\n");
 
-// 이중 언어 문자열 {ko, en}
-const B = (ko, en) => ({ ko, en });
-const pick = (x, lang) =>
-  x && typeof x === "object" ? (lang === "en" ? x.en ?? x.ko : x.ko) : x;
+// 다국어 문자열 {ko, en, ja?} — ja가 없으면 en으로, en도 없으면 ko로 폴백
+const B = (ko, en, ja) => ({ ko, en, ja });
+const pick = (x, lang) => {
+  if (!x || typeof x !== "object") return x;
+  if (lang === "ko") return x.ko;
+  return x[lang] ?? x.en ?? x.ko;
+};
 
 // 결과물 언어 — c.language는 언어 코드(canonical). 한국어 외 언어는
 // 영어 템플릿 + 대상 언어 지시문으로 프롬프트를 만든다.
@@ -63,6 +66,7 @@ function assemble(intro, lines, c, mode) {
 const DESIGN_STYLES = {
   "세련된 미니멀 (애플·Figma풍)": {
     en: "Refined minimal (Apple/Figma)",
+    ja: "洗練ミニマル(Apple・Figma風)",
     screen: [
       B(
         "- 디자인: 애플 프레젠테이션처럼 세련된 미니멀 스타일 — 넉넉한 여백, 화면당 핵심 메시지 1개, 차분한 배경에 포인트 컬러 1가지만 사용할 것",
@@ -88,6 +92,7 @@ const DESIGN_STYLES = {
   },
   "밝고 친근한 톤": {
     en: "Bright & friendly",
+    ja: "明るくフレンドリー",
     screen: [
       B(
         "- 디자인: 밝고 따뜻한 파스텔 톤과 둥근 도형, 단순한 아이콘으로 친근한 분위기로 구성할 것",
@@ -113,6 +118,7 @@ const DESIGN_STYLES = {
   },
   "다크·테크 (개발 발표풍)": {
     en: "Dark tech (developer talk)",
+    ja: "ダークテック(開発発表風)",
     screen: [
       B(
         "- 디자인: 어두운 배경에 밝은 텍스트, 네온 포인트 컬러 1가지, 다이어그램 중심의 테크 발표 스타일로 구성할 것",
@@ -138,6 +144,7 @@ const DESIGN_STYLES = {
   },
   "스위스 그리드 (모던 타이포)": {
     en: "Swiss grid (modern typographic)",
+    ja: "スイスグリッド(モダンタイポ)",
     screen: [
       B(
         "- 디자인: 스위스 그리드 스타일 — 엄격한 격자 정렬, 비대칭 여백, 흑백 + 강렬한 레드 1색, 큰 산세리프 타이포 중심으로 구성할 것",
@@ -163,6 +170,7 @@ const DESIGN_STYLES = {
   },
   "에디토리얼 매거진 (세리프·화보풍)": {
     en: "Editorial magazine",
+    ja: "エディトリアル雑誌風",
     screen: [
       B(
         "- 디자인: 고급 매거진 스타일 — 우아한 세리프 대제목, 큰 이미지 1장 중심, 크림·차콜 톤의 절제된 팔레트로 구성할 것",
@@ -188,6 +196,7 @@ const DESIGN_STYLES = {
   },
   "손그림 스케치노트": {
     en: "Hand-drawn sketchnote",
+    ja: "手描きスケッチノート",
     screen: [
       B(
         "- 디자인: 손그림 스케치노트 스타일 — 마커로 그린 듯한 도형·화살표·밑줄, 손글씨 느낌의 제목, 종이 질감 배경으로 구성할 것",
@@ -213,6 +222,7 @@ const DESIGN_STYLES = {
   },
   "볼드 팝 (비비드 컬러블록)": {
     en: "Bold pop (vivid color blocks)",
+    ja: "ボールドポップ(ビビッド配色)",
     screen: [
       B(
         "- 디자인: 볼드 팝 스타일 — 비비드한 컬러 블록, 화면을 가득 채우는 초대형 타이포, 강한 대비로 에너지 있게 구성할 것",
@@ -238,6 +248,7 @@ const DESIGN_STYLES = {
   },
   "럭셔리 세리프 (크림·골드)": {
     en: "Luxury serif (cream & gold)",
+    ja: "ラグジュアリーセリフ(クリーム・ゴールド)",
     screen: [
       B(
         "- 디자인: 럭셔리 브랜드 스타일 — 크림 배경, 가는 세리프 대제목, 골드 포인트 라인, 넓은 여백으로 고급스럽게 구성할 것",
@@ -263,6 +274,7 @@ const DESIGN_STYLES = {
   },
   "데이터 저널리즘 (차트 중심)": {
     en: "Data journalism (chart-first)",
+    ja: "データジャーナリズム(チャート中心)",
     screen: [
       B(
         "- 디자인: 데이터 저널리즘 스타일 — 차트와 수치가 주인공, 명확한 축·단위 표기, 주석으로 인사이트를 짚어줄 것",
@@ -290,10 +302,10 @@ const DESIGN_STYLES = {
 
 const DESIGN_FIELD = {
   key: "design",
-  label: B("디자인 스타일", "Design style"),
+  label: B("디자인 스타일", "Design style", "デザインスタイル"),
   type: "select",
   noTranslate: true, // 값은 항상 한국어 키로 저장·조회
-  options: Object.entries(DESIGN_STYLES).map(([ko, v]) => B(ko, v.en)),
+  options: Object.entries(DESIGN_STYLES).map(([ko, v]) => B(ko, v.en, v.ja)),
   default: "세련된 미니멀 (애플·Figma풍)",
 };
 
@@ -310,28 +322,28 @@ const ic = (inner) =>
 const OUTPUT_TYPES = [
   {
     id: "audio",
-    name: B("AI 오디오 오버뷰", "Audio Overview"),
+    name: B("AI 오디오 오버뷰", "Audio Overview", "音声概要"),
     icon: ic('<line x1="4" y1="10" x2="4" y2="14"/><line x1="8" y1="7" x2="8" y2="17"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="16" y1="7" x2="16" y2="17"/><line x1="20" y1="10" x2="20" y2="14"/>'),
     fields: [
       {
-        key: "format", label: B("진행 형식", "Format"), type: "select",
+        key: "format", label: B("진행 형식", "Format", "進行形式"), type: "select",
         options: [
-          B("두 진행자 심층 토론", "In-depth discussion (two hosts)"),
-          B("간결한 브리핑(1인)", "Concise solo briefing"),
-          B("비판적 검토", "Critical review"),
-          B("찬반 토론", "Debate (pro vs. con)"),
+          B("두 진행자 심층 토론", "In-depth discussion (two hosts)", "二人のホストによる深掘り討論"),
+          B("간결한 브리핑(1인)", "Concise solo briefing", "簡潔なブリーフィング(1人)"),
+          B("비판적 검토", "Critical review", "批判的レビュー"),
+          B("찬반 토론", "Debate (pro vs. con)", "賛否討論"),
         ],
       },
       {
-        key: "duration", label: B("길이", "Length"), type: "select",
+        key: "duration", label: B("길이", "Length", "長さ"), type: "select",
         options: [
-          B("짧게 (5분 내외)", "Short (~5 min)"),
-          B("보통 (10분 내외)", "Medium (~10 min)"),
-          B("길게 (15분 이상)", "Long (15+ min)"),
+          B("짧게 (5분 내외)", "Short (~5 min)", "短め(約5分)"),
+          B("보통 (10분 내외)", "Medium (~10 min)", "標準(約10分)"),
+          B("길게 (15분 이상)", "Long (15+ min)", "長め(15分以上)"),
         ],
       },
-      { key: "focus", label: B("반드시 다룰 주제", "Must-cover topics"), type: "text", placeholder: B("예: 핵심 개념 비교, 최신 동향", "e.g. comparing core concepts, recent trends") },
-      { key: "situation", label: B("활용 상황", "Listening context"), type: "text", placeholder: B("예: 출퇴근길 청취, 회의 전 브리핑", "e.g. commute listening, pre-meeting briefing") },
+      { key: "focus", label: B("반드시 다룰 주제", "Must-cover topics", "必ず扱うトピック"), type: "text", placeholder: B("예: 핵심 개념 비교, 최신 동향", "e.g. comparing core concepts, recent trends", "例: 主要概念の比較、最新動向") },
+      { key: "situation", label: B("활용 상황", "Listening context", "利用シーン"), type: "text", placeholder: B("예: 출퇴근길 청취, 회의 전 브리핑", "e.g. commute listening, pre-meeting briefing", "例: 通勤中の試聴、会議前のブリーフィング") },
     ],
     build(c) {
       const T = (ko, en) => (langOf(c) === "en" ? en : ko);
@@ -354,29 +366,29 @@ const OUTPUT_TYPES = [
   },
   {
     id: "slides",
-    name: B("슬라이드 자료", "Slides"),
+    name: B("슬라이드 자료", "Slides", "スライド資料"),
     icon: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/>'),
     fields: [
-      { key: "count", label: B("슬라이드 장수", "Slide count"), type: "number", placeholder: B("10", "10") },
-      { key: "time", label: B("발표 시간", "Presentation time"), type: "text", placeholder: B("예: 15분 발표", "e.g. a 15-minute talk") },
+      { key: "count", label: B("슬라이드 장수", "Slide count", "スライド枚数"), type: "number", placeholder: B("10", "10", "10") },
+      { key: "time", label: B("발표 시간", "Presentation time", "発表時間"), type: "text", placeholder: B("예: 15분 발표", "e.g. a 15-minute talk", "例: 15分の発表") },
       {
-        key: "presenter", label: B("용도", "Use case"), type: "select",
+        key: "presenter", label: B("용도", "Use case", "用途"), type: "select",
         options: [
-          B("강의·발표용", "Lecture / presentation"),
-          B("보고·브리핑용", "Report / briefing"),
-          B("자습·복습용", "Self-study / review"),
-          B("교육·워크숍용", "Training / workshop"),
+          B("강의·발표용", "Lecture / presentation", "講義・発表用"),
+          B("보고·브리핑용", "Report / briefing", "報告・ブリーフィング用"),
+          B("자습·복습용", "Self-study / review", "自習・復習用"),
+          B("교육·워크숍용", "Training / workshop", "研修・ワークショップ用"),
         ],
       },
       {
-        key: "density", label: B("텍스트 밀도", "Text density"), type: "select",
+        key: "density", label: B("텍스트 밀도", "Text density", "テキスト量"), type: "select",
         options: [
-          B("키워드 중심(텍스트 최소)", "Keywords only (minimal text)"),
-          B("핵심 문장 서술", "Key sentences"),
-          B("시각 자료 위주", "Visual-first"),
+          B("키워드 중심(텍스트 최소)", "Keywords only (minimal text)", "キーワード中心(テキスト最小)"),
+          B("핵심 문장 서술", "Key sentences", "要点を文章で記述"),
+          B("시각 자료 위주", "Visual-first", "ビジュアル中心"),
         ],
       },
-      { key: "focus", label: B("반드시 포함할 내용", "Must include"), type: "text", placeholder: B("예: 실습 예제, 핵심 수치", "e.g. hands-on examples, key figures") },
+      { key: "focus", label: B("반드시 포함할 내용", "Must include", "必ず含める内容"), type: "text", placeholder: B("예: 실습 예제, 핵심 수치", "e.g. hands-on examples, key figures", "例: 実習例、主要数値") },
       DESIGN_FIELD,
     ],
     build(c) {
@@ -399,27 +411,27 @@ const OUTPUT_TYPES = [
   },
   {
     id: "video",
-    name: B("동영상 개요", "Video Overview"),
+    name: B("동영상 개요", "Video Overview", "動画概要"),
     icon: ic('<rect x="2" y="5" width="20" height="14" rx="3"/><polygon points="10 9 15 12 10 15" fill="currentColor" stroke="none"/>'),
     fields: [
       {
-        key: "duration", label: B("길이", "Length"), type: "select",
+        key: "duration", label: B("길이", "Length", "長さ"), type: "select",
         options: [
-          B("짧게 (3분 내외)", "Short (~3 min)"),
-          B("보통 (5~7분)", "Medium (5–7 min)"),
-          B("길게 (10분 이상)", "Long (10+ min)"),
+          B("짧게 (3분 내외)", "Short (~3 min)", "短め(約3分)"),
+          B("보통 (5~7분)", "Medium (5–7 min)", "標準(5〜7分)"),
+          B("길게 (10분 이상)", "Long (10+ min)", "長め(10分以上)"),
         ],
       },
       {
-        key: "style", label: B("스타일", "Style"), type: "select",
+        key: "style", label: B("스타일", "Style", "スタイル"), type: "select",
         options: [
-          B("개념 설명 중심", "Concept explanation"),
-          B("사례·스토리 중심", "Case & story driven"),
-          B("단계별 튜토리얼", "Step-by-step tutorial"),
-          B("핵심 요약 브리핑", "Key-points briefing"),
+          B("개념 설명 중심", "Concept explanation", "概念説明中心"),
+          B("사례·스토리 중심", "Case & story driven", "事例・ストーリー中心"),
+          B("단계별 튜토리얼", "Step-by-step tutorial", "ステップ別チュートリアル"),
+          B("핵심 요약 브리핑", "Key-points briefing", "要点ブリーフィング"),
         ],
       },
-      { key: "focus", label: B("강조할 주제", "Topics to emphasize"), type: "text", placeholder: B("예: 핵심 개념 간의 관계", "e.g. how the key concepts relate") },
+      { key: "focus", label: B("강조할 주제", "Topics to emphasize", "強調するトピック"), type: "text", placeholder: B("예: 핵심 개념 간의 관계", "e.g. how the key concepts relate", "例: 主要概念どうしの関係") },
       DESIGN_FIELD,
     ],
     build(c) {
@@ -443,29 +455,30 @@ const OUTPUT_TYPES = [
   },
   {
     id: "mindmap",
-    name: B("마인드맵", "Mind Map"),
+    name: B("마인드맵", "Mind Map", "マインドマップ"),
     icon: ic('<circle cx="12" cy="12" r="2.5"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="20" r="2"/><line x1="10.2" y1="10.6" x2="6.6" y2="7.4"/><line x1="13.8" y1="10.6" x2="17.4" y2="7.4"/><line x1="12" y1="14.5" x2="12" y2="18"/>'),
     note: B(
       "마인드맵에 맞춤설정란이 없으면, 이 프롬프트를 채팅창에 붙여넣어 계층 구조 개요를 먼저 받아 보세요.",
-      "If the mind map has no customization box, paste this prompt into the chat to get a hierarchical outline first."
+      "If the mind map has no customization box, paste this prompt into the chat to get a hierarchical outline first.",
+      "マインドマップにカスタマイズ欄がない場合は、このプロンプトをチャットに貼り付けて階層アウトラインを先に受け取ってください。"
     ),
     fields: [
-      { key: "root", label: B("중심 주제", "Central topic"), type: "text", placeholder: B("예: 문서 전체의 핵심 주제", "e.g. the document's central theme") },
+      { key: "root", label: B("중심 주제", "Central topic", "中心テーマ"), type: "text", placeholder: B("예: 문서 전체의 핵심 주제", "e.g. the document's central theme", "例: 資料全体の中心テーマ") },
       {
-        key: "depth", label: B("깊이", "Depth"), type: "select",
+        key: "depth", label: B("깊이", "Depth", "階層の深さ"), type: "select",
         options: [
-          B("2단계 (대주제-소주제)", "2 levels (main → sub)"),
-          B("3단계", "3 levels"),
-          B("4단계 이상 (세부 개념까지)", "4+ levels (down to details)"),
+          B("2단계 (대주제-소주제)", "2 levels (main → sub)", "2階層(大テーマ→サブ)"),
+          B("3단계", "3 levels", "3階層"),
+          B("4단계 이상 (세부 개념까지)", "4+ levels (down to details)", "4階層以上(詳細まで)"),
         ],
       },
       {
-        key: "lens", label: B("구성 관점", "Perspective"), type: "select",
+        key: "lens", label: B("구성 관점", "Perspective", "構成の観点"), type: "select",
         options: [
-          B("개념 위계 중심", "Concept hierarchy"),
-          B("시험 출제 포인트 중심", "Exam focus points"),
-          B("프로젝트 작업 분해", "Project task breakdown"),
-          B("원인-결과 관계 중심", "Cause & effect"),
+          B("개념 위계 중심", "Concept hierarchy", "概念の階層中心"),
+          B("시험 출제 포인트 중심", "Exam focus points", "試験の出題ポイント中心"),
+          B("프로젝트 작업 분해", "Project task breakdown", "プロジェクトのタスク分解"),
+          B("원인-결과 관계 중심", "Cause & effect", "因果関係中心"),
         ],
       },
     ],
@@ -488,29 +501,29 @@ const OUTPUT_TYPES = [
   },
   {
     id: "report",
-    name: B("보고서", "Report"),
+    name: B("보고서", "Report", "レポート"),
     icon: ic('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>'),
     fields: [
       {
-        key: "kind", label: B("문서 유형", "Document type"), type: "select",
+        key: "kind", label: B("문서 유형", "Document type", "文書タイプ"), type: "select",
         options: [
-          B("핵심 요약 정리", "Key-points summary"),
-          B("실무 브리핑", "Executive briefing"),
-          B("학습·참고 자료", "Study / reference material"),
-          B("시험 대비 정리", "Exam review notes"),
-          B("안내문 초안", "Announcement draft"),
+          B("핵심 요약 정리", "Key-points summary", "要点サマリー"),
+          B("실무 브리핑", "Executive briefing", "エグゼクティブブリーフィング"),
+          B("학습·참고 자료", "Study / reference material", "学習・参考資料"),
+          B("시험 대비 정리", "Exam review notes", "試験対策ノート"),
+          B("안내문 초안", "Announcement draft", "案内文の下書き"),
         ],
       },
-      { key: "structure", label: B("원하는 목차", "Outline"), type: "text", placeholder: B("예: 개요 → 핵심 내용 → 시사점", "e.g. overview → key points → implications") },
+      { key: "structure", label: B("원하는 목차", "Outline", "希望する構成"), type: "text", placeholder: B("예: 개요 → 핵심 내용 → 시사점", "e.g. overview → key points → implications", "例: 概要 → 要点 → 示唆") },
       {
-        key: "style", label: B("문체", "Writing style"), type: "select",
+        key: "style", label: B("문체", "Writing style", "文体"), type: "select",
         options: [
-          B("개조식(~함, ~임)", "Terse bullet style"),
-          B("서술식", "Narrative prose"),
-          B("친근한 설명체", "Friendly explanatory tone"),
+          B("개조식(~함, ~임)", "Terse bullet style", "箇条書き(簡潔体)"),
+          B("서술식", "Narrative prose", "文章体"),
+          B("친근한 설명체", "Friendly explanatory tone", "親しみやすい解説体"),
         ],
       },
-      { key: "length", label: B("분량", "Length"), type: "text", placeholder: B("예: A4 2장 이내", "e.g. within 2 pages") },
+      { key: "length", label: B("분량", "Length", "分量"), type: "text", placeholder: B("예: A4 2장 이내", "e.g. within 2 pages", "例: A4 2枚以内") },
       DESIGN_FIELD,
     ],
     build(c) {
@@ -532,27 +545,27 @@ const OUTPUT_TYPES = [
   },
   {
     id: "flashcards",
-    name: B("플래시카드", "Flashcards"),
+    name: B("플래시카드", "Flashcards", "フラッシュカード"),
     icon: ic('<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>'),
     fields: [
-      { key: "count", label: B("카드 수", "Number of cards"), type: "number", placeholder: B("20", "20") },
+      { key: "count", label: B("카드 수", "Number of cards", "カード数"), type: "number", placeholder: B("20", "20", "20") },
       {
-        key: "form", label: B("카드 형식", "Card format"), type: "select",
+        key: "form", label: B("카드 형식", "Card format", "カード形式"), type: "select",
         options: [
-          B("용어 → 정의", "Term → definition"),
-          B("질문 → 답", "Question → answer"),
-          B("빈칸 채우기 혼합", "Mixed with fill-in-the-blank"),
+          B("용어 → 정의", "Term → definition", "用語 → 定義"),
+          B("질문 → 답", "Question → answer", "質問 → 答え"),
+          B("빈칸 채우기 혼합", "Mixed with fill-in-the-blank", "穴埋め混合"),
         ],
       },
       {
-        key: "difficulty", label: B("난이도", "Difficulty"), type: "select",
+        key: "difficulty", label: B("난이도", "Difficulty", "難易度"), type: "select",
         options: [
-          B("기초 용어 위주", "Basic terms"),
-          B("기초 + 응용 혼합", "Basic + applied mix"),
-          B("심화 포함", "Including advanced"),
+          B("기초 용어 위주", "Basic terms", "基礎用語中心"),
+          B("기초 + 응용 혼합", "Basic + applied mix", "基礎+応用ミックス"),
+          B("심화 포함", "Including advanced", "発展内容を含む"),
         ],
       },
-      { key: "scope", label: B("범위 제한", "Scope"), type: "text", placeholder: B("예: 3장 핵심 용어만", "e.g. chapter 3 key terms only") },
+      { key: "scope", label: B("범위 제한", "Scope", "範囲指定"), type: "text", placeholder: B("예: 3장 핵심 용어만", "e.g. chapter 3 key terms only", "例: 第3章の重要用語のみ") },
     ],
     build(c) {
       const T = (ko, en) => (langOf(c) === "en" ? en : ko);
@@ -574,29 +587,29 @@ const OUTPUT_TYPES = [
   },
   {
     id: "quiz",
-    name: B("퀴즈", "Quiz"),
+    name: B("퀴즈", "Quiz", "クイズ"),
     icon: ic('<circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.9 2.9 0 0 1 5.6 1c0 1.9-2.8 2.4-2.8 4"/><line x1="12" y1="17.5" x2="12.01" y2="17.5"/>'),
     fields: [
-      { key: "count", label: B("문항 수", "Number of questions"), type: "number", placeholder: B("10", "10") },
+      { key: "count", label: B("문항 수", "Number of questions", "問題数"), type: "number", placeholder: B("10", "10", "10") },
       {
-        key: "types", label: B("문항 유형", "Question types"), type: "select",
+        key: "types", label: B("문항 유형", "Question types", "問題形式"), type: "select",
         options: [
-          B("선다형 위주", "Mostly multiple-choice"),
-          B("선다형 + 단답형 혼합", "Multiple-choice + short answer"),
-          B("OX + 선다형 혼합", "True/false + multiple-choice"),
-          B("서술형 포함", "Including open-ended"),
+          B("선다형 위주", "Mostly multiple-choice", "選択式中心"),
+          B("선다형 + 단답형 혼합", "Multiple-choice + short answer", "選択式+短答式"),
+          B("OX + 선다형 혼합", "True/false + multiple-choice", "○×+選択式"),
+          B("서술형 포함", "Including open-ended", "記述式を含む"),
         ],
       },
       {
-        key: "difficulty", label: B("난이도 배분", "Difficulty mix"), type: "select",
+        key: "difficulty", label: B("난이도 배분", "Difficulty mix", "難易度配分"), type: "select",
         options: [
-          B("기초 위주", "Mostly basic"),
-          B("기본 70% + 응용 30%", "70% basic + 30% applied"),
-          B("응용·심화 위주", "Mostly applied/advanced"),
+          B("기초 위주", "Mostly basic", "基礎中心"),
+          B("기본 70% + 응용 30%", "70% basic + 30% applied", "基礎70%+応用30%"),
+          B("응용·심화 위주", "Mostly applied/advanced", "応用・発展中心"),
         ],
       },
-      { key: "misconception", label: B("오답 선택지에 흔한 오개념 반영", "Base distractors on common misconceptions"), type: "checkbox" },
-      { key: "explanation", label: B("문항별 해설 포함", "Include explanations per question"), type: "checkbox" },
+      { key: "misconception", label: B("오답 선택지에 흔한 오개념 반영", "Base distractors on common misconceptions", "誤答選択肢によくある誤解を反映"), type: "checkbox" },
+      { key: "explanation", label: B("문항별 해설 포함", "Include explanations per question", "各問題に解説を付ける"), type: "checkbox" },
     ],
     build(c) {
       const T = (ko, en) => (langOf(c) === "en" ? en : ko);
@@ -623,28 +636,29 @@ const OUTPUT_TYPES = [
   },
   {
     id: "infographic",
-    name: B("인포그래픽", "Infographic"),
+    name: B("인포그래픽", "Infographic", "インフォグラフィック"),
     icon: ic('<line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="9"/><line x1="3" y1="20" x2="21" y2="20"/>'),
     note: B(
       "이미지 생성 특성상 한글이 간혹 깨질 수 있어요. 깨지면 같은 프롬프트로 다시 생성하는 것이 가장 효과적입니다.",
-      "Image generation can occasionally garble text. If that happens, regenerating with the same prompt is the most effective fix."
+      "Image generation can occasionally garble text. If that happens, regenerating with the same prompt is the most effective fix.",
+      "画像生成の特性上、文字が崩れることがあります。その場合は同じプロンプトで再生成するのが最も効果的です。"
     ),
     fields: [
       {
-        key: "style", label: B("구성 방식", "Layout"), type: "select",
+        key: "style", label: B("구성 방식", "Layout", "構成"), type: "select",
         options: [
-          B("프로세스·단계형", "Process / steps"),
-          B("비교형", "Comparison"),
-          B("타임라인형", "Timeline"),
-          B("통계·수치 중심", "Stats & numbers"),
+          B("프로세스·단계형", "Process / steps", "プロセス・ステップ型"),
+          B("비교형", "Comparison", "比較型"),
+          B("타임라인형", "Timeline", "タイムライン型"),
+          B("통계·수치 중심", "Stats & numbers", "統計・数値中心"),
         ],
       },
-      { key: "emphasis", label: B("강조할 핵심", "Key emphasis"), type: "text", placeholder: B("예: 3가지 핵심 원리, 주요 수치", "e.g. 3 core principles, key figures") },
+      { key: "emphasis", label: B("강조할 핵심", "Key emphasis", "強調ポイント"), type: "text", placeholder: B("예: 3가지 핵심 원리, 주요 수치", "e.g. 3 core principles, key figures", "例: 3つの原則、主要数値") },
       {
-        key: "textAmount", label: B("텍스트 양", "Text amount"), type: "select",
+        key: "textAmount", label: B("텍스트 양", "Text amount", "テキスト量"), type: "select",
         options: [
-          B("텍스트 최소화(도식 위주)", "Minimal text (diagram-first)"),
-          B("보통(짧은 설명 포함)", "Moderate (short captions)"),
+          B("텍스트 최소화(도식 위주)", "Minimal text (diagram-first)", "テキスト最小(図中心)"),
+          B("보통(짧은 설명 포함)", "Moderate (short captions)", "標準(短い説明付き)"),
         ],
       },
       DESIGN_FIELD,
@@ -671,21 +685,21 @@ const OUTPUT_TYPES = [
   },
   {
     id: "table",
-    name: B("데이터 표", "Data Table"),
+    name: B("데이터 표", "Data Table", "データ表"),
     icon: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="10" x2="9" y2="20"/><line x1="15" y1="10" x2="15" y2="20"/>'),
     fields: [
       {
-        key: "goal", label: B("표의 목적", "Table purpose"), type: "select",
+        key: "goal", label: B("표의 목적", "Table purpose", "表の目的"), type: "select",
         options: [
-          B("항목 간 비교", "Compare items"),
-          B("핵심 내용 요약", "Summarize key content"),
-          B("체크리스트", "Checklist"),
-          B("일정·계획 정리", "Schedule / plan"),
+          B("항목 간 비교", "Compare items", "項目の比較"),
+          B("핵심 내용 요약", "Summarize key content", "要点の整理"),
+          B("체크리스트", "Checklist", "チェックリスト"),
+          B("일정·계획 정리", "Schedule / plan", "スケジュール・計画"),
         ],
       },
-      { key: "rows", label: B("행 기준", "Rows"), type: "text", placeholder: B("예: 항목·유형별로 한 행", "e.g. one row per item or type") },
-      { key: "cols", label: B("열 구성", "Columns"), type: "text", placeholder: B("예: 정의 / 특징 / 장단점 / 예시", "e.g. definition / features / pros & cons / example") },
-      { key: "sort", label: B("정렬 기준", "Sort order"), type: "text", placeholder: B("예: 등장 순서, 난이도 순", "e.g. order of appearance, by difficulty") },
+      { key: "rows", label: B("행 기준", "Rows", "行の基準"), type: "text", placeholder: B("예: 항목·유형별로 한 행", "e.g. one row per item or type", "例: 項目・種類ごとに1行") },
+      { key: "cols", label: B("열 구성", "Columns", "列の構成"), type: "text", placeholder: B("예: 정의 / 특징 / 장단점 / 예시", "e.g. definition / features / pros & cons / example", "例: 定義 / 特徴 / 長所短所 / 例") },
+      { key: "sort", label: B("정렬 기준", "Sort order", "並び順"), type: "text", placeholder: B("예: 등장 순서, 난이도 순", "e.g. order of appearance, by difficulty", "例: 登場順、難易度順") },
       DESIGN_FIELD,
     ],
     build(c) {

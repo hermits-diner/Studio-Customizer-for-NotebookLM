@@ -31,14 +31,24 @@ check("id 중복 없음", new Set(OUTPUT_TYPES.map((t) => t.id)).size === 9);
 check("모든 유형에 한/영 이름", OUTPUT_TYPES.every((t) => t.name.ko && t.name.en));
 check("모든 유형에 SVG 아이콘", OUTPUT_TYPES.every((t) => t.icon && t.icon.startsWith("<svg")));
 
+check("모든 유형에 일본어 이름", OUTPUT_TYPES.every((t) => t.name.ja));
+
 for (const type of OUTPUT_TYPES) {
   for (const f of type.fields) {
-    check(`${type.id}.${f.key} 라벨 한/영`, !!(f.label.ko && f.label.en));
+    check(`${type.id}.${f.key} 라벨 한/영/일`, !!(f.label.ko && f.label.en && f.label.ja));
     if (f.type === "select") {
-      check(`${type.id}.${f.key} 옵션 한/영`, f.options.every((o) => o.ko && o.en));
+      check(`${type.id}.${f.key} 옵션 한/영/일`, f.options.every((o) => o.ko && o.en && o.ja));
+    }
+    if (f.placeholder) {
+      check(`${type.id}.${f.key} 플레이스홀더 한/영/일`, !!(f.placeholder.ko && f.placeholder.en && f.placeholder.ja));
     }
   }
+  if (type.note) {
+    check(`${type.id} 안내문 한/영/일`, !!(type.note.ko && type.note.en && type.note.ja));
+  }
 }
+
+check("디자인 스타일 일본어명 모두 존재", Object.values(DESIGN_STYLES).every((s) => typeof s.ja === "string" && s.ja.length > 0));
 
 // --- 빌드: 한국어 ---
 for (const type of OUTPUT_TYPES) {

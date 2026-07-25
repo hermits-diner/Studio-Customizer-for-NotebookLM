@@ -107,7 +107,7 @@ const I18N = {
       "Lecture / presentation",
       "Study group material",
     ],
-    toggleLabel: "한국어",
+    toggleLabel: "日本語",
     settings: "Settings",
     apiKey: "Gemini API key",
     apiKeyPh: "Paste your key from Google AI Studio",
@@ -133,6 +133,73 @@ const I18N = {
     obStep2: "Add audience, purpose, and context — the prompt builds live",
     obStep3: "Open the customization box in NotebookLM and click Insert (or copy & paste)",
     obDone: "Got it",
+  },
+  ja: {
+    subtitle: "アウトプットを選び、コンテキストを入力するとカスタマイズプロンプトが作られます。",
+    step1: "アウトプットを選択",
+    step2: "コンテキストを入力",
+    step3: "生成されたプロンプト",
+    presets: "プリセット",
+    audience: "対象",
+    audiencePh: "例: 入門者、マーケティングチームの同僚",
+    purpose: "目的",
+    purposePh: "例: 週次会議の発表、試験対策",
+    context: "補足コンテキスト(自由記述)",
+    contextPh: "例: 予備知識のない聴衆なので、やさしい例えが必要。",
+    outputLang: "アウトプット言語",
+    copy: "コピー",
+    copied: "コピー済み ✓",
+    save: "保存",
+    del: "削除",
+    ok: "OK",
+    cancel: "キャンセル",
+    presetNamePh: "プリセット名(例: 週次ブリーフィングクイズ)",
+    presetPlaceholder: "保存済みプリセットを選択…",
+    charWarn: "一部のカスタマイズ欄には約500文字の入力上限があります。少し短くしてみてください。",
+    charSuffix: " 文字",
+    selectOption: "(選択)",
+    audienceOptions: [
+      "初めて学ぶ入門者",
+      "高校生",
+      "大学生・社会人学習者",
+      "職場の同僚・チーム",
+      "顧客・一般の方",
+      "専門家・実務者",
+    ],
+    purposeOptions: [
+      "新しい概念の紹介",
+      "要点の復習",
+      "試験・評価対策",
+      "業務報告・ブリーフィング",
+      "講義・発表資料",
+      "勉強会の資料",
+    ],
+    toggleLabel: "한국어",
+    settings: "設定",
+    apiKey: "Gemini APIキー",
+    apiKeyPh: "Google AI Studioで発行したキーを貼り付け",
+    model: "モデル",
+    refine: "AIで仕上げ",
+    refining: "仕上げ中…",
+    refineNoKey: "まず設定(右上の歯車)でGemini APIキーを保存してください。",
+    refineFail: "リクエスト失敗: ",
+    apiPrivacy: "AIで仕上げを押すと、現在のプロンプトがGoogle Gemini APIに送信されます。機微な個人情報は入力しないでください。キーはこの端末にのみ保存されます。",
+    saved: "保存済み ✓",
+    insert: "挿入",
+    inserted: "挿入済み ✓",
+    insertNoTab: "NotebookLMのタブが見つかりません。先にnotebooklm.google.comを開いてください。",
+    insertNoBox: "先にNotebookLMでアウトプットのカスタマイズ欄を開いてください。",
+    history: "履歴",
+    historyEmpty: "コピーまたは挿入したプロンプトがここに残ります。",
+    clear: "クリア",
+    exportBtn: "エクスポート",
+    importBtn: "インポート",
+    importErr: "インポート失敗: 有効なプリセットJSONファイルではありません。",
+    obTitle: "3ステップで始める",
+    obStep1: "アウトプットの種類を選ぶ(クイズ、スライド…)",
+    obStep2: "対象・目的・コンテキストを入力するとプロンプトがリアルタイムで作られる",
+    obStep3: "NotebookLMでカスタマイズ欄を開き[挿入]を押す(またはコピーして貼り付け)",
+    obDone: "はじめる",
   },
 };
 
@@ -442,13 +509,15 @@ function swapSuggestedValues(fromLang, toLang) {
   }
 }
 
+const UI_LANGS = ["ko", "en", "ja"]; // 토글 순환 순서
+
 function bindLangToggle() {
   $("langToggle").addEventListener("click", () => {
     const prev = uiLang;
-    uiLang = uiLang === "ko" ? "en" : "ko";
+    uiLang = UI_LANGS[(UI_LANGS.indexOf(uiLang) + 1) % UI_LANGS.length];
     if (hasChrome) chrome.storage.local.set({ uiLang });
     // UI 언어 전환 시 결과물 언어도 함께 전환 — 셀렉트에서 개별 변경은 그대로 가능
-    state.common.language = uiLang === "en" ? "en" : "ko";
+    state.common.language = uiLang;
     swapSuggestedValues(prev, uiLang);
     applyI18n();
     applyCommonToInputs();
@@ -537,7 +606,7 @@ async function renderHistory() {
     wrap.appendChild(p);
     return;
   }
-  const locale = uiLang === "ko" ? "ko-KR" : "en-US";
+  const locale = { ko: "ko-KR", ja: "ja-JP" }[uiLang] || "en-US";
   for (const h of history) {
     const type = OUTPUT_TYPES.find((x) => x.id === h.typeId);
     const item = document.createElement("button");
@@ -617,19 +686,24 @@ function saveState() {
   chrome.storage.local.set({ lastState: state });
 }
 
+function detectUiLang() {
+  const l = (navigator.language || "").toLowerCase();
+  if (l.startsWith("ko")) return "ko";
+  if (l.startsWith("ja")) return "ja";
+  return "en";
+}
+
 async function loadState() {
   if (!hasChrome) {
-    uiLang = (navigator.language || "").toLowerCase().startsWith("ko") ? "ko" : "en";
+    uiLang = detectUiLang();
     return;
   }
   const stored = await chrome.storage.local.get(["lastState", "uiLang"]);
-  uiLang =
-    stored.uiLang ||
-    ((navigator.language || "").toLowerCase().startsWith("ko") ? "ko" : "en");
+  uiLang = UI_LANGS.includes(stored.uiLang) ? stored.uiLang : detectUiLang();
   const lastState = stored.lastState;
   if (!lastState) {
     // 첫 실행: 결과물 언어를 UI 언어에 맞춤
-    state.common.language = uiLang === "en" ? "en" : "ko";
+    state.common.language = uiLang;
     return;
   }
   state.typeId = OUTPUT_TYPES.some((x) => x.id === lastState.typeId)
