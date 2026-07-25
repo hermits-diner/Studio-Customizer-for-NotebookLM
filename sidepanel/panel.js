@@ -328,15 +328,24 @@ function applyCommonToInputs() {
 // ---------- Gemini 설정 & AI 다듬기 ----------
 const DEFAULT_MODEL = "gemini-2.5-flash";
 
+async function openSettings() {
+  const card = $("settingsCard");
+  card.hidden = false;
+  // 설정 카드는 패널 맨 아래에 있으므로 화면에 보이도록 스크롤
+  card.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (hasChrome) {
+    const { geminiKey, geminiModel } = await chrome.storage.local.get(["geminiKey", "geminiModel"]);
+    $("geminiKey").value = geminiKey || "";
+    $("geminiModel").value = geminiModel || "";
+  }
+  $("geminiKey").focus({ preventScroll: true });
+}
+
 function bindSettings() {
-  $("settingsToggle").addEventListener("click", async () => {
+  $("settingsToggle").addEventListener("click", () => {
     const card = $("settingsCard");
-    card.hidden = !card.hidden;
-    if (!card.hidden && hasChrome) {
-      const { geminiKey, geminiModel } = await chrome.storage.local.get(["geminiKey", "geminiModel"]);
-      $("geminiKey").value = geminiKey || "";
-      $("geminiModel").value = geminiModel || "";
-    }
+    if (card.hidden) openSettings();
+    else card.hidden = true;
   });
   $("settingsSaveBtn").addEventListener("click", async () => {
     if (hasChrome) {
@@ -366,7 +375,7 @@ function bindRefine() {
       ? await chrome.storage.local.get(["geminiKey", "geminiModel"])
       : {};
     if (!stored.geminiKey) {
-      $("settingsCard").hidden = false;
+      openSettings();
       showRefineNote(S().refineNoKey);
       return;
     }
