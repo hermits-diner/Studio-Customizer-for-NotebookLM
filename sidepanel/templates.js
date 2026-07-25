@@ -12,10 +12,39 @@ const B = (ko, en) => ({ ko, en });
 const pick = (x, lang) =>
   x && typeof x === "object" ? (lang === "en" ? x.en ?? x.ko : x.ko) : x;
 
-// 프롬프트(결과물) 언어 — c.language는 '한국어' | '영어' (canonical)
-const langOf = (c) => (c.language === "영어" ? "en" : "ko");
+// 결과물 언어 — c.language는 언어 코드(canonical). 한국어 외 언어는
+// 영어 템플릿 + 대상 언어 지시문으로 프롬프트를 만든다.
+const OUTPUT_LANGS = {
+  ko: { label: "한국어", name: "Korean" },
+  en: { label: "English", name: "English" },
+  ja: { label: "日本語", name: "Japanese" },
+  zh: { label: "中文(简体)", name: "Simplified Chinese" },
+  es: { label: "Español", name: "Spanish" },
+  fr: { label: "Français", name: "French" },
+  de: { label: "Deutsch", name: "German" },
+};
 
-function assemble(intro, lines, c, langLine) {
+// 구 버전 저장값("한국어"/"영어") 호환
+const LEGACY_LANG = { "한국어": "ko", "영어": "en" };
+const langCode = (c) =>
+  OUTPUT_LANGS[c.language] ? c.language : LEGACY_LANG[c.language] || "ko";
+const langOf = (c) => (langCode(c) === "ko" ? "ko" : "en");
+
+// mode: "write"(기본) | "speak"(오디오) | "narrate"(동영상)
+function outputLangLine(c, mode) {
+  const code = langCode(c);
+  if (code === "ko") {
+    if (mode === "speak") return "- 자연스러운 한국어로 진행할 것";
+    if (mode === "narrate") return "- 내레이션은 자연스러운 한국어로 진행할 것";
+    return "- 결과물은 자연스러운 한국어로 작성할 것";
+  }
+  const name = OUTPUT_LANGS[code].name;
+  if (mode === "speak") return `- Host the conversation in natural, fluent ${name}`;
+  if (mode === "narrate") return `- Narrate in natural, fluent ${name}`;
+  return `- Write everything in natural, fluent ${name}`;
+}
+
+function assemble(intro, lines, c, mode) {
   const lang = langOf(c);
   const T = (ko, en) => (lang === "en" ? en : ko);
   let out = joinLines([
@@ -23,9 +52,7 @@ function assemble(intro, lines, c, langLine) {
     L(T("대상", "Audience"), c.audience),
     L(T("목적", "Purpose"), c.purpose),
     ...lines,
-    langLine !== undefined
-      ? langLine
-      : T("- 결과물은 자연스러운 한국어로 작성할 것", "- Write everything in natural, fluent English"),
+    outputLangLine(c, mode),
   ]);
   if (t(c.context)) out += `\n\n${T("추가 맥락", "Additional context")}: ${t(c.context)}`;
   return out;
@@ -321,7 +348,7 @@ const OUTPUT_TYPES = [
             "- Do not speculate beyond what the sources say"),
         ],
         c,
-        T("- 자연스러운 한국어로 진행할 것", "- Host the conversation in natural, fluent English")
+        "speak"
       );
     },
   },
@@ -410,7 +437,7 @@ const OUTPUT_TYPES = [
             "- Use visuals (diagrams, example screens) actively; avoid monotonously reading lists"),
         ],
         c,
-        T("- 내레이션은 자연스러운 한국어로 진행할 것", "- Narrate in natural, fluent English")
+        "narrate"
       );
     },
   },

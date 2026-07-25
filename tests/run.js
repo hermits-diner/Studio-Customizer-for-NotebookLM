@@ -11,8 +11,8 @@ const code = fs.readFileSync(path.join(__dirname, "..", "sidepanel", "templates.
 const ctx = { console };
 vm.createContext(ctx);
 // 최상위 const는 컨텍스트 객체에 붙지 않으므로 명시적으로 내보낸다
-vm.runInContext(code + "\n;this.__x = { OUTPUT_TYPES, DESIGN_STYLES, DESIGN_FIELD };", ctx);
-const { OUTPUT_TYPES, DESIGN_STYLES, DESIGN_FIELD } = ctx.__x;
+vm.runInContext(code + "\n;this.__x = { OUTPUT_TYPES, DESIGN_STYLES, DESIGN_FIELD, OUTPUT_LANGS };", ctx);
+const { OUTPUT_TYPES, DESIGN_STYLES, DESIGN_FIELD, OUTPUT_LANGS } = ctx.__x;
 
 let pass = 0;
 let fail = 0;
@@ -47,10 +47,26 @@ for (const type of OUTPUT_TYPES) {
   check(`${type.id} ko 한국어 포함`, /[가-힣]/.test(out));
 }
 
-// --- 빌드: 영어 (빈 입력 시 한글이 전혀 없어야 함) ---
+// --- 빌드: 영어 (빈 입력 시 한글이 전혀 없어야 함, 구 저장값 "영어" 호환) ---
 for (const type of OUTPUT_TYPES) {
   const out = type.build({ language: "영어" });
   check(`${type.id} en 빌드에 한글 없음`, !/[가-힣]/.test(out));
+}
+
+// --- 빌드: 확장 결과물 언어 (영어 템플릿 + 대상 언어 지시문) ---
+check("결과물 언어 7종", Object.keys(OUTPUT_LANGS).length === 7);
+for (const type of OUTPUT_TYPES) {
+  const out = type.build({ language: "ja" });
+  check(`${type.id} ja 빌드에 한글 없음`, !/[가-힣]/.test(out));
+  check(`${type.id} ja 빌드에 Japanese 지시`, out.includes("Japanese"));
+}
+{
+  const audio = OUTPUT_TYPES.find((t) => t.id === "audio");
+  check("오디오 ja: 진행 언어 지시", audio.build({ language: "ja" }).includes("Host the conversation in natural, fluent Japanese"));
+  const video = OUTPUT_TYPES.find((t) => t.id === "video");
+  check("동영상 fr: 내레이션 지시", video.build({ language: "fr" }).includes("Narrate in natural, fluent French"));
+  const quiz = OUTPUT_TYPES.find((t) => t.id === "quiz");
+  check("구 저장값 한국어 호환", /[가-힣]/.test(quiz.build({ language: "한국어" })));
 }
 
 // --- 공통 필드 반영 ---

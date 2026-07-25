@@ -31,7 +31,6 @@ const I18N = {
     charWarn: "일부 산출물의 맞춤설정란은 입력 한도(약 500자)가 있어요. 조금 줄여 보세요.",
     charSuffix: "자",
     selectOption: "(선택)",
-    langNames: { "한국어": "한국어", "영어": "영어" },
     audienceOptions: [
       "입문자·처음 배우는 사람",
       "고등학생",
@@ -92,7 +91,6 @@ const I18N = {
     charWarn: "Some customization boxes have a ~500-character limit. Consider trimming.",
     charSuffix: " chars",
     selectOption: "(select)",
-    langNames: { "한국어": "Korean", "영어": "English" },
     audienceOptions: [
       "Beginners new to the topic",
       "High school students",
@@ -144,7 +142,7 @@ const pickUI = (x) => pick(x, uiLang);
 
 const state = {
   typeId: OUTPUT_TYPES[0].id,
-  common: { audience: "", purpose: "", context: "", language: "한국어" },
+  common: { audience: "", purpose: "", context: "", language: "ko" },
   // 유형별 입력값을 따로 보관해서 유형을 오가도 값이 유지되게 한다
   byType: {},
 };
@@ -174,14 +172,15 @@ function applyI18n() {
   $("settingsToggle").setAttribute("aria-label", S().settings);
   fillDatalist("audienceList", S().audienceOptions);
   fillDatalist("purposeList", S().purposeOptions);
-  // 결과물 언어 select — 값은 canonical('한국어'/'영어'), 표시만 번역
+  // 결과물 언어 select — 값은 언어 코드, 표기는 각 언어의 원어 명칭
   const sel = $("language");
-  const cur = state.common.language || "한국어";
+  const cur = langCode({ language: state.common.language });
+  state.common.language = cur;
   sel.innerHTML = "";
-  for (const canon of ["한국어", "영어"]) {
+  for (const [code, def] of Object.entries(OUTPUT_LANGS)) {
     const o = document.createElement("option");
-    o.value = canon;
-    o.textContent = S().langNames[canon];
+    o.value = code;
+    o.textContent = def.label;
     sel.appendChild(o);
   }
   sel.value = cur;
@@ -278,9 +277,9 @@ function buildPrompt() {
     if (vals[f.key] === undefined && f.default !== undefined) vals[f.key] = f.default;
   }
   const c = { ...state.common, ...vals };
-  if (!c.language) c.language = "한국어";
-  // 결과물 언어가 영어면 선택 옵션 값을 영어로 치환 (디자인 스타일 등 noTranslate 제외)
-  if (c.language === "영어") {
+  if (!c.language) c.language = "ko";
+  // 영어 템플릿을 쓰는 언어면 선택 옵션 값을 영어로 치환 (디자인 스타일 등 noTranslate 제외)
+  if (langOf(c) === "en") {
     for (const f of type.fields) {
       if (f.type === "select" && !f.noTranslate && t(c[f.key])) {
         const opt = f.options.find((o) => o.ko === c[f.key]);
@@ -386,7 +385,7 @@ function bindRefine() {
     btn.textContent = S().refining;
     try {
       const model = stored.geminiModel || DEFAULT_MODEL;
-      const outLang = state.common.language === "영어" ? "English" : "Korean";
+      const outLang = OUTPUT_LANGS[langCode({ language: state.common.language })].name;
       const meta =
         "You are an expert prompt engineer for Google NotebookLM Studio outputs. " +
         "Improve the customization prompt below: make it clearer, more specific, and better structured " +
@@ -449,7 +448,7 @@ function bindLangToggle() {
     uiLang = uiLang === "ko" ? "en" : "ko";
     if (hasChrome) chrome.storage.local.set({ uiLang });
     // UI 언어 전환 시 결과물 언어도 함께 전환 — 셀렉트에서 개별 변경은 그대로 가능
-    state.common.language = uiLang === "en" ? "영어" : "한국어";
+    state.common.language = uiLang === "en" ? "en" : "ko";
     swapSuggestedValues(prev, uiLang);
     applyI18n();
     applyCommonToInputs();
@@ -630,7 +629,7 @@ async function loadState() {
   const lastState = stored.lastState;
   if (!lastState) {
     // 첫 실행: 결과물 언어를 UI 언어에 맞춤
-    state.common.language = uiLang === "en" ? "영어" : "한국어";
+    state.common.language = uiLang === "en" ? "en" : "ko";
     return;
   }
   state.typeId = OUTPUT_TYPES.some((x) => x.id === lastState.typeId)
